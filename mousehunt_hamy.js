@@ -1981,6 +1981,8 @@ function floatingIslands() {
 
     if (canRetreat && !isHighAltitude && hasDefeatedEnemy && islandProgress >= 40) {
       fireEvent(classButton, 'click');
+      var confirmButton = document.getElementsByClassName('floatingIslandsHUD-dialog-actions')[0].getElementsByClassName('mousehuntActionButton')[1];
+      fireEvent(confirmButton, 'click');
     }
 }
 
