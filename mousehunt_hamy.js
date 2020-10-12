@@ -1951,10 +1951,11 @@ function vRift() {
     var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestRiftValour)'));
     var classButton = document.getElementsByClassName('valourRiftHUD-fuelContainer-armButton')[0];
     var bTowerActive = objUser.is_fuel_enabled;
-    if (objUser.is_eclipse_mode && !bTowerActive) {
+
+    if ((objUser.is_at_eclipse || objUser.floor_type == 8) && !bTowerActive) {
       // Enable
       fireEvent(classButton, 'click');
-    } else if (!objUser.is_eclipse_mode && bTowerActive) {
+    } else if (!(objUser.is_at_eclipse || objUser.floor_type == 8) && bTowerActive) {
       // Disable
       fireEvent(classButton, 'click');
     }
