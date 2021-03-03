@@ -1314,6 +1314,9 @@ function eventLocationCheck(caller) {
         case 'Floating Islands':
             floatingIslands();
             break;
+        case 'Birthday':
+            birthday();
+            break;
         default:
             break;
     }
@@ -1985,6 +1988,18 @@ function floatingIslands() {
       var confirmButton = document.getElementsByClassName('floatingIslandsHUD-dialog-actions')[0].getElementsByClassName('mousehuntActionButton')[1];
       fireEvent(confirmButton, 'click');
     }
+}
+
+function birthday() {
+  var claimButton = document.getElementsByClassName('superBrieFactoryHUD-claimButton')[0];
+  if (claimButton.style.display != "none") {
+    fireEvent(claimButton, 'click');
+  }
+
+  var closeButton = document.getElementsByClassName('jsDialogClose')[0];
+  if (closeButton.style.display != "none") {
+    fireEvent(closeButton, 'click');
+  }
 }
 
 
@@ -6640,6 +6655,7 @@ function embedTimer(targetPage) {
                 preferenceHTMLStr += '<option value="None">None</option>';
                 preferenceHTMLStr += '<option value="All LG Area">All LG Area</option>';
                 preferenceHTMLStr += '<option value="BC/JOD">BC => JOD</option>';
+                preferenceHTMLStr += '<option value="Birthday">Birthday</option>';
                 preferenceHTMLStr += '<option value="Bristle Woods Rift">Bristle Woods Rift</option>';
                 preferenceHTMLStr += '<option value="Burroughs Rift(Red)">Burroughs Rift(Red)</option>';
                 preferenceHTMLStr += '<option value="Burroughs Rift(Green)">Burroughs Rift(Green)</option>';
