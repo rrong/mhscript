@@ -1992,13 +1992,8 @@ function floatingIslands() {
 
 function birthday() {
   var claimButton = document.getElementsByClassName('superBrieFactoryHUD-claimButton')[0];
-  if (claimButton.style.display != "none") {
+  if (window.getComputedStyle(claimButton).display === "block") {
     fireEvent(claimButton, 'click');
-  }
-
-  var closeButton = document.getElementsByClassName('jsDialogClose')[0];
-  if (closeButton.style.display != "none") {
-    fireEvent(closeButton, 'click');
   }
 }
 
