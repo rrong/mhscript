@@ -2064,7 +2064,7 @@ function Render(islandStatus)
             mask.appendChild(target2);
         }
 
-    if (target2!= null && islandStatus[powerType][4] >= 100) {
+    if (target2!= null && best[1] >= 100) {
         fireEvent(target2, 'click');
         var launchButton = document.getElementsByClassName('floatingIslandsAdventureBoard-launchButton')[0];
         fireEvent(launchButton, 'click');
