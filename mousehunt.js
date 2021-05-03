@@ -49,7 +49,7 @@ var enableTrapCheck = true;
 // // Trap check time different value (00 minutes - 45 minutes)
 // // Note: Every player had different trap check time, set your trap check time here. It only take effect if enableTrapCheck = true;
 // // Example: If you have XX:00 trap check time then set 00. If you have XX:45 trap check time, then set 45.
-var trapCheckTimeDiff = 15;
+var trapCheckTimeDiff = 30;
 
 // // Extra delay time to trap check. (in seconds)
 // // Note: It only take effect if enableTrapCheck = true;
@@ -1317,6 +1317,9 @@ function eventLocationCheck(caller) {
         case 'Birthday':
             birthday();
             break;
+        case 'Queso Geyser':
+            quesoGeyser();
+            break;
         default:
             break;
     }
@@ -1486,7 +1489,7 @@ function bwRift() {
     var objBWRift = {
         order: ['NONE', 'GEARWORKS', 'ANCIENT', 'RUNIC', 'TIMEWARP', 'GUARD', 'SECURITY', 'FROZEN', 'FURNACE', 'INGRESS', 'PURSUER', 'ACOLYTE_CHARGING', 'ACOLYTE_DRAINING', 'ACOLYTE_DRAINED', 'LUCKY', 'HIDDEN'],
         master: {
-            weapon: new Array(32).fill('MTimesplit Dissonance Trap'),
+            weapon: new Array(32).fill('Timesplit Dissonance Trap'),
             base: new Array(32).fill('Clockwork Base'),
             trinket: new Array(32).fill('Rift Vacuum Charm'),
             bait: new Array(32).fill('Swiss String'),
@@ -1948,8 +1951,8 @@ function fortRox() {
 }
 
 function vRift() {
-    if (GetCurrentLocation().indexOf("Valour Rift") < 0)
-        return;
+  if (GetCurrentLocation().indexOf("Valour Rift") < 0)
+     return;
 
     var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestRiftValour)'));
     var classButton = document.getElementsByClassName('valourRiftHUD-fuelContainer-armButton')[0];
@@ -2097,8 +2100,7 @@ function CalculateIndex(target,is_high_altitude)
 }
 
 function chooseIslandType() {
-    var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestFloatingIslands)'));
-    var skyWardensCaught = objUser.sky_wardens_caught;
+
       var startButton = document.getElementsByClassName('floatingIslandsHUD-adventureBoardButton')[0];
     var startButton2 = document.getElementsByClassName('floatingIslandsHUD-launchPad')[0];
 
@@ -2174,7 +2176,7 @@ function chooseIslandType() {
     originalOpen.apply(this, arguments);
   }
 
-  if (window.getComputedStyle(startButton).display === "block" && window.getComputedStyle(startButton2).display === "block" && skyWardensCaught != 4) {
+  if (window.getComputedStyle(startButton).display === "block" && window.getComputedStyle(startButton2).display === "block") {
     fireEvent(startButton, 'click');
   }
 }
@@ -2195,7 +2197,13 @@ function floatingIslands() {
       var confirmButton = document.getElementsByClassName('floatingIslandsHUD-dialog-actions')[0].getElementsByClassName('mousehuntActionButton')[1];
       fireEvent(confirmButton, 'click');
     }
-    chooseIslandType();
+
+    var skyWardensCaught = objUser.sky_wardens_caught;
+    console.log(isHighAltitude);
+    if (!isHighAltitude) {
+        chooseIslandType();
+    }
+
 }
 
 function birthday() {
@@ -2203,6 +2211,18 @@ function birthday() {
   if (window.getComputedStyle(claimButton).display === "block") {
     fireEvent(claimButton, 'click');
   }
+}
+
+function quesoGeyser() {
+    if (GetCurrentLocation().indexOf("Queso Geyser") < 0)
+        return;
+
+    var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestQuesoGeyser)'));
+    var isCorkCollecting = objUser.state == "eruption";
+
+    if (isCorkCollecting) {
+      checkThenArm(null, 'bait', 'Medium Queso');
+    }
 }
 
 
@@ -3776,6 +3796,8 @@ function labyrinth() {
     }
 
     var labyStatus = getPageVariable("user.quests.QuestLabyrinth.status");
+    console.log("ELITE");
+    console.log("BRUH" + labyStatus);
     var isAtEntrance = (labyStatus == "intersection entrance");
     var isAtHallway = (labyStatus == "hallway");
     var isAtIntersection = (labyStatus == "intersection");
@@ -6875,6 +6897,7 @@ function embedTimer(targetPage) {
                 //preferenceHTMLStr += '<option value="GWH2016R">GWH 2016</option>';
                 preferenceHTMLStr += '<option value="Iceberg">Iceberg</option>';
                 preferenceHTMLStr += '<option value="Labyrinth">Labyrinth</option>';
+                preferenceHTMLStr += '<option value="Queso Geyser">Queso Geyser</option>';
                 preferenceHTMLStr += '<option value="SG">Seasonal Garden</option>';
                 preferenceHTMLStr += '<option value="Sunken City">Sunken City</option>';
                 preferenceHTMLStr += '<option value="Sunken City Custom">Sunken City Custom</option>';
@@ -10687,6 +10710,8 @@ function getPageVariableForChrome(variableName) {
     scriptElement.setAttribute('type', "text/javascript");
     scriptElement.innerHTML = "document.getElementById('scriptElement').innerText=" + variableName + ";";
     document.body.appendChild(scriptElement);
+    console.log("CHROME");
+    console.log(scriptElement);
 
     var value = scriptElement.innerHTML;
     document.body.removeChild(scriptElement);
