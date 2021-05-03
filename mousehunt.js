@@ -2075,6 +2075,7 @@ function Render(islandStatus)
     else {
         var rerollButton = document.getElementsByClassName('floatingIslandsAdventureBoard-rerollButton')[0];
         fireEvent(rerollButton, 'click');
+        console.log("REROLLING");
        // chooseIslandType();
     }
 }
@@ -2105,11 +2106,8 @@ function chooseIslandType() {
     var startButton2 = document.getElementsByClassName('floatingIslandsHUD-launchPad')[0];
 
   const originalOpen = XMLHttpRequest.prototype.open;
-          console.log("START");
   XMLHttpRequest.prototype.open = function () {
-      console.log("OPEN");
     this.addEventListener("load", function () {
-              console.log("LOAD");
         var islandStatus_Raw=[];
     var is_high_altitude=user.quests.QuestFloatingIslands.hunting_site_atts.is_high_altitude;
         //console.log(this.responseURL);
@@ -2198,9 +2196,10 @@ function floatingIslands() {
       fireEvent(confirmButton, 'click');
     }
 
-    var skyWardensCaught = objUser.sky_wardens_caught;
+    var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
     console.log(isHighAltitude);
-    if (!isHighAltitude) {
+    console.log(skyWardensCaught);
+    if (!isHighAltitude && skyWardensCaught < 4) {
         chooseIslandType();
     }
 
