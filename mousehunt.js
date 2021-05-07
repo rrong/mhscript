@@ -2186,11 +2186,15 @@ function floatingIslands() {
     var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestFloatingIslands)'));
     var classButton = document.getElementsByClassName('floatingIslandsHUD-retreatButton')[0];
     var canRetreat = objUser.can_retreat;
+
+    // True when island is HAI. is_high_altitude is true when HAI or wardens caught == 4.	
+    var isHighTierIsland = objUser.hunting_site_atts.is_high_tier_island;
     var isHighAltitude = objUser.hunting_site_atts.is_high_altitude;
+	
     var hasDefeatedEnemy = objUser.hunting_site_atts.has_defeated_enemy;
     var islandProgress = objUser.hunting_site_atts.island_progress;
 
-    if (canRetreat && !isHighAltitude && hasDefeatedEnemy && islandProgress >= 40) {
+    if (canRetreat && !isHighTierIsland && hasDefeatedEnemy && islandProgress >= 40) {
       fireEvent(classButton, 'click');
       var confirmButton = document.getElementsByClassName('floatingIslandsHUD-dialog-actions')[0].getElementsByClassName('mousehuntActionButton')[1];
       fireEvent(confirmButton, 'click');
