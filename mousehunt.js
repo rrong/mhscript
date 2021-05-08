@@ -2193,23 +2193,35 @@ function floatingIslands() {
 	
     var hasDefeatedEnemy = objUser.hunting_site_atts.has_defeated_enemy;
     var islandProgress = objUser.hunting_site_atts.island_progress;
+    var isEnemyEncounter = objUser.hunting_site_atts.is_enemy_encounter;
 	
     var savedBase = document.getElementsByClassName('floatingIslandsHUD-savedTrapSetup-item-name')[0].textContent;
     var savedBait = document.getElementsByClassName('floatingIslandsHUD-savedTrapSetup-item-name')[1].textContent;
     var savedTrap = document.getElementsByClassName('floatingIslandsHUD-savedTrapSetup-item-name')[2].textContent;
     var savedTrinket = document.getElementsByClassName('floatingIslandsHUD-savedTrapSetup-item-name')[3].textContent;
     
-    console.log("Saved Base" + savedBase);
-    console.log("Saved Bait" + savedBait);
-    console.log("Saved Trap" + savedTrap);
-    console.log("Saved Trinket" + savedTrinket);
+    console.log("Saved Base: " + savedBase);
+    console.log("Saved Bait: " + savedBait);
+    console.log("Saved Trap: " + savedTrap);
+    console.log("Saved Trinket: " + savedTrinket);
+	
+    if (!isHighTierIsland && !hasDefeatedEnemy && isEnemyEncounter) { 
+    	checkThenArm(null, 'weapon', 'School of Sharks');
+	checkThenArm(null, 'weapon', 'Dragon Slayer Cannon');
+    }
 
+    // Retreat once LAI fully explored.
     if (canRetreat && !isHighTierIsland && hasDefeatedEnemy && islandProgress >= 40) {
       fireEvent(classButton, 'click');
       var confirmButton = document.getElementsByClassName('floatingIslandsHUD-dialog-actions')[0].getElementsByClassName('mousehuntActionButton')[1];
       fireEvent(confirmButton, 'click');
     }
+	
+    if (!isHighTierIsland && hasDefeatedEnemy) {
+    	checkThenArm(null, 'weapon', savedTrap);
+    }
 
+    // Automatically enter next island if LAI.
     var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
     console.log(isHighAltitude);
     console.log(skyWardensCaught);
