@@ -2193,6 +2193,16 @@ function floatingIslands() {
 	
     var hasDefeatedEnemy = objUser.hunting_site_atts.has_defeated_enemy;
     var islandProgress = objUser.hunting_site_atts.island_progress;
+	
+    var savedBase = document.getElementsByClassName('floatingIslandsHUD-savedTrapSetup-item-name')[0].textContent;
+    var savedBait = document.getElementsByClassName('floatingIslandsHUD-savedTrapSetup-item-name')[1].textContent;
+    var savedTrap = document.getElementsByClassName('floatingIslandsHUD-savedTrapSetup-item-name')[2].textContent;
+    var savedTrinket = document.getElementsByClassName('floatingIslandsHUD-savedTrapSetup-item-name')[3].textContent;
+    
+    console.log("Saved Base" + savedBase);
+    console.log("Saved Bait" + savedBait);
+    console.log("Saved Trap" + savedTrap);
+    console.log("Saved Trinket" + savedTrinket);
 
     if (canRetreat && !isHighTierIsland && hasDefeatedEnemy && islandProgress >= 40) {
       fireEvent(classButton, 'click');
