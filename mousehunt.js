@@ -2187,27 +2187,27 @@ function floatingIslands() {
     var classButton = document.getElementsByClassName('floatingIslandsHUD-retreatButton')[0];
     var canRetreat = objUser.can_retreat;
 
-    // True when island is HAI. is_high_altitude is true when HAI or wardens caught == 4.	
+    // True when island is HAI. is_high_altitude is true when HAI or wardens caught == 4.
     var isHighTierIsland = objUser.hunting_site_atts.is_high_tier_island;
     var isHighAltitude = objUser.hunting_site_atts.is_high_altitude;
-	
+
     var hasDefeatedEnemy = objUser.hunting_site_atts.has_defeated_enemy;
     var islandProgress = objUser.hunting_site_atts.island_progress;
     var isEnemyEncounter = objUser.hunting_site_atts.is_enemy_encounter;
-	
+
     var savedBase = document.getElementsByClassName('floatingIslandsHUD-savedTrapSetup-item-name')[0].textContent;
     var savedBait = document.getElementsByClassName('floatingIslandsHUD-savedTrapSetup-item-name')[1].textContent;
     var savedTrap = document.getElementsByClassName('floatingIslandsHUD-savedTrapSetup-item-name')[2].textContent;
     var savedTrinket = document.getElementsByClassName('floatingIslandsHUD-savedTrapSetup-item-name')[3].textContent;
-    
+
     console.log("Saved Base: " + savedBase);
     console.log("Saved Bait: " + savedBait);
     console.log("Saved Trap: " + savedTrap);
     console.log("Saved Trinket: " + savedTrinket);
-	
-    if (!isHighTierIsland && !hasDefeatedEnemy && isEnemyEncounter) { 
+
+    if (!isHighTierIsland && !hasDefeatedEnemy && isEnemyEncounter) {
     	checkThenArm(null, 'weapon', 'School of Sharks');
-	checkThenArm(null, 'weapon', 'Dragon Slayer Cannon');
+	//checkThenArm(null, 'weapon', 'Dragon Slayer Cannon');
     }
 
     // Retreat once LAI fully explored.
@@ -2216,8 +2216,11 @@ function floatingIslands() {
       var confirmButton = document.getElementsByClassName('floatingIslandsHUD-dialog-actions')[0].getElementsByClassName('mousehuntActionButton')[1];
       fireEvent(confirmButton, 'click');
     }
-	
+
     if (!isHighTierIsland && hasDefeatedEnemy) {
+        if (savedTrap.substring(savedTrap.length - 5) == ' Trap') {
+           savedTrap = savedTrap.slice(0, -5);
+        }
     	checkThenArm(null, 'weapon', savedTrap);
     }
 
