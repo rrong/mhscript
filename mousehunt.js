@@ -49,7 +49,7 @@ var enableTrapCheck = true;
 // // Trap check time different value (00 minutes - 45 minutes)
 // // Note: Every player had different trap check time, set your trap check time here. It only take effect if enableTrapCheck = true;
 // // Example: If you have XX:00 trap check time then set 00. If you have XX:45 trap check time, then set 45.
-var trapCheckTimeDiff = 30;
+var trapCheckTimeDiff = 15;
 
 // // Extra delay time to trap check. (in seconds)
 // // Note: It only take effect if enableTrapCheck = true;
@@ -2206,18 +2206,21 @@ function floatingIslands() {
     console.log("Saved Trinket: " + savedTrinket);
 
     if (!isHighTierIsland && !hasDefeatedEnemy && isEnemyEncounter) {
-    	checkThenArm(null, 'weapon', 'School of Sharks');
-	//checkThenArm(null, 'weapon', 'Dragon Slayer Cannon');
+    	//checkThenArm(null, 'weapon', 'School of Sharks');
+	checkThenArm(null, 'weapon', 'Dragon Slayer Cannon');
     }
 
+    console.log("trinket" + JSON.parse(getPageVariable('JSON.stringify(user)')).bait_name);
+    var currentBait = JSON.parse(getPageVariable('JSON.stringify(user)')).bait_name;
+
     // Retreat once LAI fully explored.
-    if (canRetreat && !isHighTierIsland && hasDefeatedEnemy && islandProgress >= 40) {
+    if (canRetreat && !isHighTierIsland && hasDefeatedEnemy && islandProgress >= 40 && currentBait != "Sky Pirate Swiss Cheese") {
       fireEvent(classButton, 'click');
       var confirmButton = document.getElementsByClassName('floatingIslandsHUD-dialog-actions')[0].getElementsByClassName('mousehuntActionButton')[1];
       fireEvent(confirmButton, 'click');
     }
 
-    if (!isHighTierIsland && hasDefeatedEnemy) {
+    if (!isHighTierIsland && hasDefeatedEnemy && currentBait != "Sky Pirate Swiss Cheese") {
         if (savedTrap.substring(savedTrap.length - 5) == ' Trap') {
            savedTrap = savedTrap.slice(0, -5);
         }
