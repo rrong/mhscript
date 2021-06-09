@@ -431,11 +431,6 @@ var header = 'header';
 var hornReady = 'hornready';
 var isNewUI = false;
 
-// Floating Islands
-var currentBait;
-var currentWeapon;
-var currentTrinket;
-
 // NOB vars
 var NOBtickerTimout;
 var NOBtickerInterval;
@@ -2209,15 +2204,16 @@ function floatingIslands() {
     console.log("Saved Bait: " + savedBait);
     console.log("Saved Trap: " + savedTrap);
     console.log("Saved Trinket: " + savedTrinket);
+	
+    var currentBait = JSON.parse(getPageVariable('JSON.stringify(user)')).bait_name;
+    var currentWeapon = JSON.parse(getPageVariable('JSON.stringify(user)')).weapon_name; 
+    var currentTrinket = JSON.parse(getPageVariable('JSON.stringify(user)')).trinket_name;
 
     // Arm specific trap for LAI warden.	
     if (!isHighTierIsland && !hasDefeatedEnemy && isEnemyEncounter) {
-	currentBait = JSON.parse(getPageVariable('JSON.stringify(user)')).bait_name;
-	currentWeapon = JSON.parse(getPageVariable('JSON.stringify(user)')).weapon_name;
-	currentTrinket = JSON.parse(getPageVariable('JSON.stringify(user)')).trinket_name;
-	    
     	//checkThenArm(null, 'weapon', 'School of Sharks');
 	checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
+	checkThenArm(null, 'bait', 'Gouda Cheese');
     }
 
     // Retreat once LAI fully explored.
@@ -2227,19 +2223,16 @@ function floatingIslands() {
       fireEvent(confirmButton, 'click');
     }
 
-    // After LAI warden is defeated, arm original trap.
+    // After LAI warden is defeated, arm original trap and cheese.
     if (!isHighTierIsland && hasDefeatedEnemy) {
-	if (currentWeapon != "") {
-	   if (currentWeapon.substring(currentWeapon.length - 5) == ' Trap') {
-	      currentWeapon = currentWeapon.slice(0, -5);
+	if (savedTrap != "") {
+	   if (savedTrap.substring(savedTrap.length - 5) == ' Trap') {
+	      savedTrap = savedTrap.slice(0, -5);
 	   }
-	   checkThenArm(null, 'weapon', currentWeapon);
+	   checkThenArm(null, 'weapon', savedTrap);
 	}
-    	if (currentBait != "") {
-	   checkThenArm(null, 'bait', currentBait);
-	}
-	if (currentTrinket != "") {
-	   checkThenArm(null, 'trinket', currentTrinket);
+	if (savedBait != "") {
+	   checkThenArm(null, 'bait', savedBait);
 	}
     }
 	
@@ -2260,8 +2253,6 @@ function floatingIslands() {
 
     // Automatically enter next island if LAI.
     var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
-    console.log(isHighAltitude);
-    console.log(skyWardensCaught);
     if (!isHighAltitude && skyWardensCaught < 4) {
         chooseIslandType();
     }
