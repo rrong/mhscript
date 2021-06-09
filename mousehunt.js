@@ -431,6 +431,11 @@ var header = 'header';
 var hornReady = 'hornready';
 var isNewUI = false;
 
+// Floating Islands
+var currentBait;
+var currentWeapon;
+var currentTrinket;
+
 // NOB vars
 var NOBtickerTimout;
 var NOBtickerInterval;
@@ -2205,10 +2210,6 @@ function floatingIslands() {
     console.log("Saved Trap: " + savedTrap);
     console.log("Saved Trinket: " + savedTrinket);
 
-    var currentBait;
-    var currentWeapon;
-    var currentTrinket;
-
     // Arm specific trap for LAI warden.	
     if (!isHighTierIsland && !hasDefeatedEnemy && isEnemyEncounter) {
 	currentBait = JSON.parse(getPageVariable('JSON.stringify(user)')).bait_name;
@@ -2228,10 +2229,10 @@ function floatingIslands() {
 
     // After LAI warden is defeated, arm original trap.
     if (!isHighTierIsland && hasDefeatedEnemy) {
-        if (currentWeapon.substring(currentWeapon.length - 5) == ' Trap') {
-           currentWeapon = currentWeapon.slice(0, -5);
-        }
 	if (currentWeapon != "") {
+	   if (currentWeapon.substring(currentWeapon.length - 5) == ' Trap') {
+	      currentWeapon = currentWeapon.slice(0, -5);
+	   }
 	   checkThenArm(null, 'weapon', currentWeapon);
 	}
     	if (currentBait != "") {
