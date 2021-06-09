@@ -2205,13 +2205,19 @@ function floatingIslands() {
     console.log("Saved Trap: " + savedTrap);
     console.log("Saved Trinket: " + savedTrinket);
 
-    if (!isHighTierIsland && !hasDefeatedEnemy && isEnemyEncounter) {
-    	//checkThenArm(null, 'weapon', 'School of Sharks');
-	checkThenArm(null, 'weapon', 'Dragon Slayer Cannon');
-    }
+    var currentBait;
+    var currentWeapon;
+    var currentTrinket;
 
-    console.log("trinket" + JSON.parse(getPageVariable('JSON.stringify(user)')).bait_name);
-    var currentBait = JSON.parse(getPageVariable('JSON.stringify(user)')).bait_name;
+    // Arm specific trap for LAI warden.	
+    if (!isHighTierIsland && !hasDefeatedEnemy && isEnemyEncounter) {
+	currentBait = JSON.parse(getPageVariable('JSON.stringify(user)')).bait_name;
+	currentWeapon = JSON.parse(getPageVariable('JSON.stringify(user)')).weapon_name;
+	currentTrinket = JSON.parse(getPageVariable('JSON.stringify(user)')).trinket_name;
+	    
+    	//checkThenArm(null, 'weapon', 'School of Sharks');
+	checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
+    }
 
     // Retreat once LAI fully explored.
     if (canRetreat && !isHighTierIsland && hasDefeatedEnemy && islandProgress >= 40 && currentBait != "Sky Pirate Swiss Cheese") {
@@ -2220,12 +2226,36 @@ function floatingIslands() {
       fireEvent(confirmButton, 'click');
     }
 
-    if (!isHighTierIsland && hasDefeatedEnemy && currentBait != "Sky Pirate Swiss Cheese") {
-        if (savedTrap.substring(savedTrap.length - 5) == ' Trap') {
-           savedTrap = savedTrap.slice(0, -5);
+    // After LAI warden is defeated, arm original trap.
+    if (!isHighTierIsland && hasDefeatedEnemy) {
+        if (currentWeapon.substring(currentWeapon.length - 5) == ' Trap') {
+           currentWeapon = currentWeapon.slice(0, -5);
         }
-    	checkThenArm(null, 'weapon', savedTrap);
+	if (currentWeapon != "") {
+	   checkThenArm(null, 'weapon', currentWeapon);
+	}
+    	if (currentBait != "") {
+	   checkThenArm(null, 'bait', currentBait);
+	}
+	if (currentTrinket != "") {
+	   checkThenArm(null, 'trinket', currentTrinket);
+	}
     }
+	
+   // Use specific traps for Physical HAI.
+   if (objUser.hunting_site_atts.island_name == "Physical Palisade") {
+	checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
+   }
+	
+   // Use specific traps for Hydro HAI Paragon
+   if (objUser.hunting_site_atts.island_name == "Hydro Hideaway" && !hasDefeatedEnemy && isEnemyEncounter) {
+   	checkThenArm(null, 'weapon', 'Queso Font');
+   }
+
+   // Switch back to SoS after Hydro HAI Paragon defeated
+   if (objUser.hunting_site_atts.island_name == "Hydro Hideaway" && hasDefeatedEnemy) {
+   	checkThenArm(null, 'weapon', 'School of Sharks');
+   }
 
     // Automatically enter next island if LAI.
     var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
