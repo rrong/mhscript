@@ -2213,7 +2213,6 @@ function floatingIslands() {
     if (!isHighTierIsland && !hasDefeatedEnemy && isEnemyEncounter) {
     	//checkThenArm(null, 'weapon', 'School of Sharks');
 	checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
-	checkThenArm(null, 'bait', 'Gouda Cheese');
     }
 
     // Retreat once LAI fully explored.
