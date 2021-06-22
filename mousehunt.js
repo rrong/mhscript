@@ -2223,7 +2223,7 @@ function floatingIslands() {
     }
 
     // After LAI warden is defeated, arm original trap and cheese.
-    if (!isHighTierIsland && hasDefeatedEnemy) {
+    if (!isHighTierIsland && hasDefeatedEnemy && currentBait != "Sky Pirate Swiss Cheese") {
 	if (savedTrap != "") {
 	   if (savedTrap.substring(savedTrap.length - 5) == ' Trap') {
 	      savedTrap = savedTrap.slice(0, -5);
