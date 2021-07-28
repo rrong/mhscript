@@ -2211,8 +2211,7 @@ function floatingIslands() {
 
     // Arm specific trap for LAI warden.	
     if (!isHighTierIsland && !hasDefeatedEnemy && isEnemyEncounter) {
-    	//checkThenArm(null, 'weapon', 'School of Sharks');
-	checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
+    	checkThenArm(null, 'weapon', 'Chrome School of Sharks');
     }
 
     // Retreat once LAI fully explored.
@@ -2238,16 +2237,6 @@ function floatingIslands() {
    // Use specific traps for Physical HAI.
    if (objUser.hunting_site_atts.island_name == "Physical Palisade") {
 	checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
-   }
-	
-   // Use specific traps for Hydro HAI Paragon
-   if (objUser.hunting_site_atts.island_name == "Hydro Hideaway" && !hasDefeatedEnemy && isEnemyEncounter) {
-   	checkThenArm(null, 'weapon', 'Queso Font');
-   }
-
-   // Switch back to SoS after Hydro HAI Paragon defeated
-   if (objUser.hunting_site_atts.island_name == "Hydro Hideaway" && hasDefeatedEnemy) {
-   	checkThenArm(null, 'weapon', 'School of Sharks');
    }
 
     // Automatically enter next island if LAI.
