@@ -2102,7 +2102,7 @@ function CalculateIndex(target,is_high_altitude)
 
 function chooseIslandType() {
 
-      var startButton = document.getElementsByClassName('floatingIslandsHUD-adventureBoardButton')[0];
+      var startButton = document.getElementsByClassName('floatingIslandsHUD-skyMapButton ')[0];
     var startButton2 = document.getElementsByClassName('floatingIslandsHUD-launchPad')[0];
 
   const originalOpen = XMLHttpRequest.prototype.open;
