@@ -2127,7 +2127,7 @@ function chooseIslandType() {
       ) {
         let data;
         try {
-          data = JSON.parse(this.responseText).adventure_board.grid;
+          data = JSON.parse(this.responseText).adventure_board.sky_map.grid;
           if (data && data.length == 16) {
            console.log("Retrived Correct Data from floating_islands.php");
            console.log(data);
@@ -2174,7 +2174,7 @@ function chooseIslandType() {
     originalOpen.apply(this, arguments);
   }
 
-  if (window.getComputedStyle(startButton).display === "block" && window.getComputedStyle(startButton2).display === "block") {
+  if (window.getComputedStyle(startButton).display === "inline-block" && window.getComputedStyle(startButton2).display === "block") {
     fireEvent(startButton, 'click');
   }
 }
