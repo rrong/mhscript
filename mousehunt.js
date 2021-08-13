@@ -2190,6 +2190,7 @@ function floatingIslands() {
     // True when island is HAI. is_high_altitude is true when HAI or wardens caught == 4.
     var isHighTierIsland = objUser.hunting_site_atts.is_high_tier_island;
     var isHighAltitude = objUser.hunting_site_atts.is_high_altitude;
+    var isVaultIsland = objUser.hunting_site_atts.is_vault_island;
 
     var hasDefeatedEnemy = objUser.hunting_site_atts.has_defeated_enemy;
     var islandProgress = objUser.hunting_site_atts.island_progress;
@@ -2210,19 +2211,19 @@ function floatingIslands() {
     var currentTrinket = JSON.parse(getPageVariable('JSON.stringify(user)')).trinket_name;
 
     // Arm specific trap for LAI warden.	
-    if (!isHighTierIsland && !hasDefeatedEnemy && isEnemyEncounter) {
+    if (!isHighTierIsland && !isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
     	checkThenArm(null, 'weapon', 'Chrome School of Sharks');
     }
 
     // Retreat once LAI fully explored.
-    if (canRetreat && !isHighTierIsland && hasDefeatedEnemy && islandProgress >= 40 && currentBait != "Sky Pirate Swiss Cheese") {
+    if (canRetreat && !isVaultIsland && !isHighTierIsland && hasDefeatedEnemy && islandProgress >= 40 && currentBait != "Sky Pirate Swiss Cheese") {
       fireEvent(classButton, 'click');
       var confirmButton = document.getElementsByClassName('floatingIslandsHUD-dialog-actions')[0].getElementsByClassName('mousehuntActionButton')[1];
       fireEvent(confirmButton, 'click');
     }
 
     // After LAI warden is defeated, arm original trap and cheese.
-    if (!isHighTierIsland && hasDefeatedEnemy && currentBait != "Sky Pirate Swiss Cheese") {
+    if (!isHighTierIsland && !isVaultIsland && hasDefeatedEnemy && currentBait != "Sky Pirate Swiss Cheese") {
 	if (savedTrap != "") {
 	   if (savedTrap.substring(savedTrap.length - 5) == ' Trap') {
 	      savedTrap = savedTrap.slice(0, -5);
@@ -2241,7 +2242,7 @@ function floatingIslands() {
 
     // Automatically enter next island if LAI.
     var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
-    if (!isHighAltitude && skyWardensCaught < 4) {
+    if (!isHighAltitude && !isVaultIsland && skyWardensCaught < 4) {
         chooseIslandType();
     }
 
