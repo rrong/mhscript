@@ -2073,7 +2073,7 @@ function Render(islandStatus)
         fireEvent(launchButton, 'click');
     }
     else {
-        var rerollButton = document.getElementsByClassName('floatingIslandsAdventureBoard-rerollButton')[0];
+        var rerollButton = document.getElementsByClassName('floatingIslandsAdventureBoardSkyMap-rerollButton')[0];
         fireEvent(rerollButton, 'click');
         console.log("REROLLING");
        // chooseIslandType();
