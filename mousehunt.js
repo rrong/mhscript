@@ -1320,6 +1320,9 @@ function eventLocationCheck(caller) {
         case 'Queso Geyser':
             quesoGeyser();
             break;
+        case 'Halloween 2021':
+            halloween2021();
+            break;
         default:
             break;
     }
@@ -2201,16 +2204,17 @@ function floatingIslands() {
     var savedTrap = document.getElementsByClassName('floatingIslandsHUD-savedTrapSetup-item-name')[2].textContent;
     var savedTrinket = document.getElementsByClassName('floatingIslandsHUD-savedTrapSetup-item-name')[3].textContent;
 
+    console.log("VAULT: " + !isVaultIsland);
     console.log("Saved Base: " + savedBase);
     console.log("Saved Bait: " + savedBait);
     console.log("Saved Trap: " + savedTrap);
     console.log("Saved Trinket: " + savedTrinket);
-	
+
     var currentBait = JSON.parse(getPageVariable('JSON.stringify(user)')).bait_name;
-    var currentWeapon = JSON.parse(getPageVariable('JSON.stringify(user)')).weapon_name; 
+    var currentWeapon = JSON.parse(getPageVariable('JSON.stringify(user)')).weapon_name;
     var currentTrinket = JSON.parse(getPageVariable('JSON.stringify(user)')).trinket_name;
 
-    // Arm specific trap for LAI warden.	
+    // Arm specific trap for LAI warden.
     if (!isHighTierIsland && !isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
     	checkThenArm(null, 'weapon', 'Chrome School of Sharks');
     }
@@ -2223,7 +2227,7 @@ function floatingIslands() {
     }
 
     // After LAI warden is defeated, arm original trap and cheese.
-    if (!isHighTierIsland && !isVaultIsland && hasDefeatedEnemy && currentBait != "Sky Pirate Swiss Cheese") {
+    if (!isHighTierIsland && !isVaultIsland && hasDefeatedEnemy) {
 	if (savedTrap != "") {
 	   if (savedTrap.substring(savedTrap.length - 5) == ' Trap') {
 	      savedTrap = savedTrap.slice(0, -5);
@@ -2234,15 +2238,15 @@ function floatingIslands() {
 	   checkThenArm(null, 'bait', savedBait);
 	}
     }
-	
+
    // Use specific traps for Physical HAI.
-   if (objUser.hunting_site_atts.island_name == "Physical Palisade") {
-	checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
-   }
+//    if (objUser.hunting_site_atts.island_name == "Physical Palisade") {
+// 	checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
+//    }
 
     // Automatically enter next island if LAI.
     var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
-    if (!isHighAltitude && !isVaultIsland && skyWardensCaught < 4) {
+    if (!isHighAltitude && skyWardensCaught < 4) {
         chooseIslandType();
     }
 
@@ -2264,6 +2268,50 @@ function quesoGeyser() {
 
     if (isCorkCollecting) {
       checkThenArm(null, 'bait', 'Medium Queso');
+    }
+}
+
+function halloween2021_clickcauldron(objUser, cauldron1, cauldron2) {
+    if (objUser.cauldrons[0].queue[0].type == null) {
+        fireEvent(cauldron1, 'click');
+    } else if (objUser.cauldrons[1].queue[0].type == null) {
+        fireEvent(cauldron2, 'click');
+    } else if (objUser.cauldrons[0].queue[1].type == null) {
+        fireEvent(cauldron1, 'click');
+    } else if (objUser.cauldrons[1].queue[1].type == null) {
+        fireEvent(cauldron2, 'click');
+    }
+}
+
+function halloween2021() {
+    var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestHalloweenBoilingCauldron)'));
+    console.log(objUser);
+    var cauldron1 = document.getElementsByClassName('halloweenBoilingCauldronHUD-cauldron-boundingBox')[0];
+    var cauldron2 = document.getElementsByClassName('halloweenBoilingCauldronHUD-cauldron-boundingBox')[1];
+    if (objUser.items.halloween_extract_stat_item.can_brew_0 || objUser.items.halloween_extract_stat_item.can_brew_1) {
+        halloween2021_clickcauldron(objUser, cauldron1, cauldron2);
+        var brewLantern = document.getElementsByClassName('halloweenBoilingCauldronRecipeView-brewButton')[4];
+        fireEvent(brewLantern, 'click');
+    } else if (objUser.items.cauldron_tier_4_cheese.can_brew_0 || objUser.items.cauldron_tier_4_cheese.can_brew_1) {
+        halloween2021_clickcauldron(objUser, cauldron1, cauldron2);
+        var brewLantern = document.getElementsByClassName('halloweenBoilingCauldronRecipeView-brewButton')[3];
+        fireEvent(brewLantern, 'click');
+    } else if (objUser.items.cauldron_tier_3_cheese.can_brew_0 || objUser.items.cauldron_tier_3_cheese.can_brew_1) {
+        halloween2021_clickcauldron(objUser, cauldron1, cauldron2);
+        var brewLantern = document.getElementsByClassName('halloweenBoilingCauldronRecipeView-brewButton')[2];
+        fireEvent(brewLantern, 'click');
+    } else if (objUser.items.cauldron_tier_2_cheese.can_brew_0 || objUser.items.cauldron_tier_2_cheese.can_brew_1) {
+        halloween2021_clickcauldron(objUser, cauldron1, cauldron2);
+        var brewLantern = document.getElementsByClassName('halloweenBoilingCauldronRecipeView-brewButton')[1];
+        fireEvent(brewLantern, 'click');
+    } else if (objUser.items.cauldron_tier_1_cheese.can_brew_0 || objUser.items.cauldron_tier_1_cheese.can_brew_1) {
+        halloween2021_clickcauldron(objUser, cauldron1, cauldron2);
+        var brewLantern = document.getElementsByClassName('halloweenBoilingCauldronRecipeView-brewButton')[0];
+        fireEvent(brewLantern, 'click');
+    }
+    var doneButton = document.getElementsByClassName('halloweenBoilingCauldronRecipeView-doneButton')[0];
+    if (doneButton) {
+        fireEvent(doneButton, 'click');
     }
 }
 
@@ -6937,6 +6985,7 @@ function embedTimer(targetPage) {
                 preferenceHTMLStr += '<option value="Furoma Rift">Furoma Rift</option>';
                 preferenceHTMLStr += '<option value="GES">Gnawnian Express Station</option>';
                 //preferenceHTMLStr += '<option value="GWH2016R">GWH 2016</option>';
+                preferenceHTMLStr += '<option value="Halloween 2021">Halloween 2021</option>';
                 preferenceHTMLStr += '<option value="Iceberg">Iceberg</option>';
                 preferenceHTMLStr += '<option value="Labyrinth">Labyrinth</option>';
                 preferenceHTMLStr += '<option value="Queso Geyser">Queso Geyser</option>';
