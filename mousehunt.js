@@ -1961,20 +1961,25 @@ function vRift() {
     var classButton = document.getElementsByClassName('valourRiftHUD-fuelContainer-armButton')[0];
     var bTowerActive = objUser.is_fuel_enabled;
 
-    if ((objUser.is_at_eclipse || objUser.floor_type == 8) && !bTowerActive) {
+  //  if ((objUser.is_at_eclipse || objUser.floor_type == 8) && !bTowerActive) {
       // Enable
-      fireEvent(classButton, 'click');
-    } else if (!(objUser.is_at_eclipse || objUser.floor_type == 8) && bTowerActive) {
+    //  fireEvent(classButton, 'click');
+    //} else if (!(objUser.is_at_eclipse || objUser.floor_type == 8) && bTowerActive) {
       // Disable
-      fireEvent(classButton, 'click');
+      //fireEvent(classButton, 'click');
+    //}
+
+    if (objUser.is_at_eclipse || objUser.floor_type == 8) {
+       checkThenArm(null, 'trinket', 'Ultimate Charm');
+       checkThenArm(null, 'base', 'Gift of the Day Base');
+    } else if (objUser.state != "farming") {
+       checkThenArm(null, 'trinket', 'Rift Ultimate Lucky Power Charm');
+       checkThenArm(null, 'base', 'Signature Series Denture Base');
     }
 
     if (objUser.state == "farming") {
       console.log("FARM");
       checkThenArm(null, 'bait', 'Swiss String Cheese');
-    } else if (objUser.state == "tower") {
-      console.log("TOWER");
-      // checkThenArm(null, 'bait', 'Gauntlet String Cheese');
     }
 }
 
@@ -2006,14 +2011,14 @@ const IslandIndexDefault=
           };
     const LAI_Index=
           {
-              'sky_cheese':[1.6,1.3,1.2,1.1],
+              'sky_cheese':[50,48,46,44],
               'gem_bonus':[2,1.4,1.3,1.1],
               'empty_sky':[1,1,1,1],
               'ore_bonus':[2,1.4,1.3,1.1],
               'paragon_cache':[7,3,2,1.5],
               'shrine':[100000,3,2,1.5],
 			  'pirate':[1,1,1,1],
-			  'loot_cache':[3,2.5,2,1.9]
+			  'loot_cache':[100,99,98,97]
           };
         const HAI_Index=
           {
@@ -2220,7 +2225,7 @@ function floatingIslands() {
     }
 
     // Retreat once LAI fully explored.
-    if (canRetreat && !isVaultIsland && !isHighTierIsland && hasDefeatedEnemy && islandProgress >= 40 && currentBait != "Sky Pirate Swiss Cheese") {
+    if (canRetreat && !isVaultIsland && hasDefeatedEnemy && islandProgress >= 40 && currentBait != "Sky Pirate Swiss Cheese") {
       fireEvent(classButton, 'click');
       var confirmButton = document.getElementsByClassName('floatingIslandsHUD-dialog-actions')[0].getElementsByClassName('mousehuntActionButton')[1];
       fireEvent(confirmButton, 'click');
