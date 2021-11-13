@@ -2016,7 +2016,7 @@ const IslandIndexDefault=
               'empty_sky':[1,1,1,1],
               'ore_bonus':[2,1.4,1.3,1.1],
               'paragon_cache':[7,3,2,1.5],
-              'shrine':[100000,3,2,1.5],
+              'shrine':[10000000,3,2,1.5],
 			  'pirate':[1,1,1,1],
 			  'loot_cache':[100,99,98,97]
           };
@@ -2075,7 +2075,7 @@ function Render(islandStatus)
             mask.appendChild(target2);
         }
 
-    if (target2!= null && best[1] >= 100) {
+    if (target2!= null && best[1] >= 10000) {
         fireEvent(target2, 'click');
         var launchButton = document.getElementsByClassName('floatingIslandsAdventureBoard-launchButton')[0];
         fireEvent(launchButton, 'click');
@@ -2245,9 +2245,9 @@ function floatingIslands() {
     }
 
    // Use specific traps for Physical HAI.
-//    if (objUser.hunting_site_atts.island_name == "Physical Palisade") {
-// 	checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
-//    }
+    if (objUser.hunting_site_atts.island_name == "Physical Palisade") {
+ 	checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
+    }
 
     // Automatically enter next island if LAI.
     var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
