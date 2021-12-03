@@ -2222,7 +2222,7 @@ function floatingIslands() {
     // Arm specific trap for LAI warden.
     if (!isHighTierIsland && !isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
     	//checkThenArm(null, 'weapon', 'Chrome School of Sharks');
-        checkThenArm(null, 'weapon', 'Slumbering Boulder Trap');
+        checkThenArm(null, 'weapon', 'Slumbering Boulder');
     }
 
     // Retreat once LAI fully explored.
