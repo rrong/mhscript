@@ -1323,6 +1323,9 @@ function eventLocationCheck(caller) {
         case 'Halloween 2021':
             halloween2021();
             break;
+        case 'GWH 2021':
+            gwh2021();
+            break;
         default:
             break;
     }
@@ -2419,6 +2422,43 @@ function Halloween2016() {
             }
         }
 
+    }
+}
+
+function gwh2021() {
+    var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestWinterHunt2021)'));
+    console.log(objUser);
+
+    if (objUser.golems[0].can_claim) {
+      var claim1 = document.getElementsByClassName('winterHunt2021HUD-golemBuilder-golemButton')[0];
+      fireEvent(claim1, 'click');
+    }
+    if (objUser.golems[1].can_claim) {
+      var claim2 = document.getElementsByClassName('winterHunt2021HUD-golemBuilder-golemButton')[1];
+      fireEvent(claim2, 'click');
+    }
+
+    if (objUser.golems[2].can_claim) {
+      var claim3 = document.getElementsByClassName('winterHunt2021HUD-golemBuilder-golemButton')[2];
+      fireEvent(claim3, 'click');
+    }
+    if (objUser.golems[0].can_build) {
+      var claim1 = document.getElementsByClassName('winterHunt2021HUD-golemBuilder-golemButton')[0];
+      fireEvent(claim1, 'click');
+      var launch1 = document.getElementsByClassName('winterHunt2021HUD-popup-sendGolemButton')[0];
+      fireEvent(launch1, 'click');
+    }
+    if (objUser.golems[1].can_build) {
+      var claim2 = document.getElementsByClassName('winterHunt2021HUD-golemBuilder-golemButton')[1];
+      fireEvent(claim2, 'click');
+      var launch2 = document.getElementsByClassName('winterHunt2021HUD-popup-sendGolemButton')[1];
+      fireEvent(launch2, 'click');
+    }
+    if (objUser.golems[2].can_build) {
+      var claim3 = document.getElementsByClassName('winterHunt2021HUD-golemBuilder-golemButton')[2];
+      fireEvent(claim3, 'click');
+      var launch3 = document.getElementsByClassName('winterHunt2021HUD-popup-sendGolemButton')[2];
+      fireEvent(launch3, 'click');
     }
 }
 
@@ -6990,6 +7030,7 @@ function embedTimer(targetPage) {
                 preferenceHTMLStr += '<option value="Fort Rox">Fort Rox</option>';
                 preferenceHTMLStr += '<option value="Furoma Rift">Furoma Rift</option>';
                 preferenceHTMLStr += '<option value="GES">Gnawnian Express Station</option>';
+                preferenceHTMLStr += '<option value="GWH 2021">GWH 2021</option>';
                 //preferenceHTMLStr += '<option value="GWH2016R">GWH 2016</option>';
                 preferenceHTMLStr += '<option value="Halloween 2021">Halloween 2021</option>';
                 preferenceHTMLStr += '<option value="Iceberg">Iceberg</option>';
