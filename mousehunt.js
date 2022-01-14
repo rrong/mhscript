@@ -1964,21 +1964,21 @@ function vRift() {
     var classButton = document.getElementsByClassName('valourRiftHUD-fuelContainer-armButton')[0];
     var bTowerActive = objUser.is_fuel_enabled;
 
-  //  if ((objUser.is_at_eclipse || objUser.floor_type == 8) && !bTowerActive) {
-      // Enable
-    //  fireEvent(classButton, 'click');
-    //} else if (!(objUser.is_at_eclipse || objUser.floor_type == 8) && bTowerActive) {
-      // Disable
-      //fireEvent(classButton, 'click');
-    //}
-
-    if (objUser.is_at_eclipse || objUser.floor_type == 8) {
-       checkThenArm(null, 'trinket', 'Ultimate Charm');
-       checkThenArm(null, 'base', 'Gift of the Day Base');
-    } else if (objUser.state != "farming") {
-       checkThenArm(null, 'trinket', 'Rift Ultimate Lucky Power Charm');
-       checkThenArm(null, 'base', 'Signature Series Denture Base');
+   if ((objUser.is_at_eclipse || objUser.floor_type == 8) && !bTowerActive) {
+      Enable
+     fireEvent(classButton, 'click');
+    } else if (!(objUser.is_at_eclipse || objUser.floor_type == 8) && bTowerActive) {
+      Disable
+      fireEvent(classButton, 'click');
     }
+
+//     if (objUser.is_at_eclipse || objUser.floor_type == 8) {
+//        checkThenArm(null, 'trinket', 'Ultimate Charm');
+//        checkThenArm(null, 'base', 'Gift of the Day Base');
+//     } else if (objUser.state != "farming") {
+//        checkThenArm(null, 'trinket', 'Rift Ultimate Lucky Power Charm');
+//        checkThenArm(null, 'base', 'Signature Series Denture Base');
+//     }
 
     if (objUser.state == "farming") {
       console.log("FARM");
