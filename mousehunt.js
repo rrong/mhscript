@@ -1965,10 +1965,10 @@ function vRift() {
     var bTowerActive = objUser.is_fuel_enabled;
 
    if ((objUser.is_at_eclipse || objUser.floor_type == 8) && !bTowerActive) {
-      Enable
+      //Enable
      fireEvent(classButton, 'click');
     } else if (!(objUser.is_at_eclipse || objUser.floor_type == 8) && bTowerActive) {
-      Disable
+      //Disable
       fireEvent(classButton, 'click');
     }
 
