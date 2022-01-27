@@ -2259,9 +2259,9 @@ function floatingIslands() {
     }
 
     var currentTimeHour = new Date().getHours();
-    var autoEnterHAI = currentTimeHour >= 0 && currentTimeHour <= 9;
+    var autoEnterHAI = currentTimeHour >= 0 && currentTimeHour <= 8;
 
-    // Automatically enter next island if LAI, or between 00:00 and 09:59 for HAI.
+    // Automatically enter next island if LAI, or between 00:00 and 08:59 for HAI.
     var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
     if ((!isHighAltitude && skyWardensCaught < 4) || autoEnterHAI) {
         chooseIslandType();
