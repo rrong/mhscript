@@ -2077,7 +2077,7 @@ function Render(islandStatus)
             target2.parentNode.insertBefore(mask,target2)
             mask.appendChild(target2);
         }
-
+    var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestFloatingIslands)'));
     var isHighAltitude = objUser.hunting_site_atts.is_high_altitude;
     var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
 
