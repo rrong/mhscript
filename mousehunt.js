@@ -1964,21 +1964,21 @@ function vRift() {
     var classButton = document.getElementsByClassName('valourRiftHUD-fuelContainer-armButton')[0];
     var bTowerActive = objUser.is_fuel_enabled;
 
-   if ((objUser.is_at_eclipse || objUser.floor_type == 8) && !bTowerActive) {
-      //Enable
-     fireEvent(classButton, 'click');
-    } else if (!(objUser.is_at_eclipse || objUser.floor_type == 8) && bTowerActive) {
-      //Disable
-      fireEvent(classButton, 'click');
-    }
+  //  if ((objUser.is_at_eclipse || objUser.floor_type == 8) && !bTowerActive) {
+      // Enable
+    //  fireEvent(classButton, 'click');
+    //} else if (!(objUser.is_at_eclipse || objUser.floor_type == 8) && bTowerActive) {
+      // Disable
+      //fireEvent(classButton, 'click');
+    //}
 
-//     if (objUser.is_at_eclipse || objUser.floor_type == 8) {
-//        checkThenArm(null, 'trinket', 'Ultimate Charm');
-//        checkThenArm(null, 'base', 'Gift of the Day Base');
-//     } else if (objUser.state != "farming") {
-//        checkThenArm(null, 'trinket', 'Rift Ultimate Lucky Power Charm');
-//        checkThenArm(null, 'base', 'Signature Series Denture Base');
-//     }
+    if (objUser.is_at_eclipse || objUser.floor_type == 8) {
+       checkThenArm(null, 'trinket', 'Ultimate Charm');
+       checkThenArm(null, 'base', 'Gift of the Day Base');
+    } else if (objUser.state != "farming") {
+       checkThenArm(null, 'trinket', 'Rift Ultimate Lucky Power Charm');
+       checkThenArm(null, 'base', 'Signature Series Denture Base');
+    }
 
     if (objUser.state == "farming") {
       console.log("FARM");
@@ -2025,14 +2025,14 @@ const IslandIndexDefault=
           };
         const HAI_Index=
           {
-              'sky_cheese':[2.2,2,1.5,1.5],
+              'sky_cheese':[50,48,46,44],
               'gem_bonus':[2.7,2.6,2.5,2.4],
               'empty_sky':[1,1,1,1],
               'ore_bonus':[2.7,2.6,2.5,2.4],
-              'paragon_cache':[1.03,1.02,1.01,1],
+              'paragon_cache':[10000000,1.02,1.01,1],
               'shrine':[1.03,1.02,1.01,1],
 			  'pirate':[1,1,1,1],
-			  'loot_cache':[6,5.95,5.9,5.85]
+			  'loot_cache':[100,99,98,97]
           };
 const target_test=['sky_cheese','empty_sky','shrine','gem_bonus'];
 function isNullOrUndefined(obj){
@@ -2078,12 +2078,16 @@ function Render(islandStatus)
             mask.appendChild(target2);
         }
 
+    var isHighAltitude = objUser.hunting_site_atts.is_high_altitude;
+    var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
+
     if (target2!= null && best[1] >= 10000) {
         fireEvent(target2, 'click');
         var launchButton = document.getElementsByClassName('floatingIslandsAdventureBoard-launchButton')[0];
         fireEvent(launchButton, 'click');
     }
-    else {
+    // Only reroll for LAI
+    else if (!isHighAltitude && skyWardensCaught < 4){
         var rerollButton = document.getElementsByClassName('floatingIslandsAdventureBoardSkyMap-rerollButton')[0];
         fireEvent(rerollButton, 'click');
         console.log("REROLLING");
@@ -2193,6 +2197,7 @@ function chooseIslandType() {
 function floatingIslands() {
     if (GetCurrentLocation().indexOf("Floating Islands") < 0)
         return;
+    console.log(new Date().getHours());
 
     var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestFloatingIslands)'));
     var classButton = document.getElementsByClassName('floatingIslandsHUD-retreatButton')[0];
@@ -2253,9 +2258,12 @@ function floatingIslands() {
  	checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
     }
 
-    // Automatically enter next island if LAI.
+    var currentTimeHour = new Date().getHours();
+    var autoEnterHAI = currentTimeHour >= 0 && currentTimeHour <= 9;
+
+    // Automatically enter next island if LAI, or between 00:00 and 09:59 for HAI.
     var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
-    if (!isHighAltitude && skyWardensCaught < 4) {
+    if ((!isHighAltitude && skyWardensCaught < 4) || autoEnterHAI) {
         chooseIslandType();
     }
 
