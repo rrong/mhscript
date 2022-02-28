@@ -2197,16 +2197,19 @@ function chooseIslandType() {
 function floatingIslands() {
     if (GetCurrentLocation().indexOf("Floating Islands") < 0)
         return;
-    console.log(new Date().getHours());
 
     var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestFloatingIslands)'));
     var classButton = document.getElementsByClassName('floatingIslandsHUD-retreatButton')[0];
     var canRetreat = objUser.can_retreat;
+    console.log(objUser);
 
     // True when island is HAI. is_high_altitude is true when HAI or wardens caught == 4.
     var isHighTierIsland = objUser.hunting_site_atts.is_high_tier_island;
+    var isLowTierIsland = objUser.hunting_site_atts.is_low_tier_island;
     var isHighAltitude = objUser.hunting_site_atts.is_high_altitude;
     var isVaultIsland = objUser.hunting_site_atts.is_vault_island;
+    var isFuelEnabled = objUser.hunting_site_atts.is_fuel_enabled;
+    var fuelButton = document.getElementsByClassName('floatingIslandsHUD-fuel-button')[0];
 
     var hasDefeatedEnemy = objUser.hunting_site_atts.has_defeated_enemy;
     var islandProgress = objUser.hunting_site_atts.island_progress;
@@ -2233,6 +2236,13 @@ function floatingIslands() {
         checkThenArm(null, 'weapon', 'Slumbering Boulder');
     }
 
+    // Fuel if step = 37 for HAI or LAI. Disable fuel if not 37
+    if ((isHighTierIsland || isLowTierIsland) && islandProgress == 37 && !isFuelEnabled) {
+        fireEvent(fuelButton, 'click');
+    } else if ((isHighTierIsland || isLowTierIsland) && islandProgress != 37 && isFuelEnabled) {
+        fireEvent(fuelButton, 'click');
+    }
+
     // Retreat once LAI fully explored.
     if (canRetreat && !isVaultIsland && hasDefeatedEnemy && islandProgress >= 40 && currentBait != "Sky Pirate Swiss Cheese") {
       fireEvent(classButton, 'click');
@@ -2242,26 +2252,26 @@ function floatingIslands() {
 
     // After LAI warden is defeated, arm original trap and cheese.
     if (!isHighTierIsland && !isVaultIsland && hasDefeatedEnemy) {
-	if (savedTrap != "") {
-	   if (savedTrap.substring(savedTrap.length - 5) == ' Trap') {
-	      savedTrap = savedTrap.slice(0, -5);
-	   }
-	   checkThenArm(null, 'weapon', savedTrap);
-	}
-	if (savedBait != "") {
-	   checkThenArm(null, 'bait', savedBait);
-	}
+        if (savedTrap != "") {
+            if (savedTrap.substring(savedTrap.length - 5) == ' Trap') {
+                savedTrap = savedTrap.slice(0, -5);
+            }
+            checkThenArm(null, 'weapon', savedTrap);
+        }
+        if (savedBait != "") {
+            checkThenArm(null, 'bait', savedBait);
+        }
     }
 
    // Use specific traps for Physical HAI.
     if (objUser.hunting_site_atts.island_name == "Physical Palisade") {
- 	checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
+        checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
     }
 
     var currentTimeHour = new Date().getHours();
     var autoEnterHAI = currentTimeHour >= 0 && currentTimeHour <= 8;
 
-    // Automatically enter next island if LAI, or between 00:00 and 08:59 for HAI.
+    // Automatically enter next island if LAI, or between 00:00 and 09:59 for HAI.
     var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
     if ((!isHighAltitude && skyWardensCaught < 4) || autoEnterHAI) {
         chooseIslandType();
@@ -2278,8 +2288,6 @@ function floatingIslands() {
     }
 
     // Automatically enable fuel for first 3 sections of SP. Disable fuel at last section of SP.
-    var isFuelEnabled = objUser.hunting_site_atts.is_fuel_enabled;
-    var fuelButton = document.getElementsByClassName('floatingIslandsHUD-fuel-button')[0];
     if (isVaultIsland && islandProgress < 30 && !isFuelEnabled) {
        fireEvent(fuelButton, 'click');
     } else if (isVaultIsland && islandProgress >= 30 && isFuelEnabled) {
@@ -2315,7 +2323,13 @@ function floatingIslands() {
             checkThenArm(null, 'bait', 'Extra Rich Cloud Cheesecake');
         }
     }
-	
+
+    // Enable fuel
+//     
+//     if (!objUser.hunting_site_atts.is_fuel_enabled && (isLowTierIsland || isHighTierIsland)) {
+//        fireEvent(fuelButton, 'click');
+//     }
+
 }
 
 function birthday() {
