@@ -2267,6 +2267,16 @@ function floatingIslands() {
         chooseIslandType();
     }
 
+    // SP Stuff below ----------------------------------------------------------------------
+    var isSpPirate = isVaultIsland && objUser.hunting_site_atts.island_mod_types[3] == "sky_pirates";
+
+    // Arm ERCC automatically. For pirate, arm sky pirate after 20 steps.
+    if (isVaultIsland && islandProgress == 0) {
+       checkThenArm(null, 'bait', 'Extra Rich Cloud Cheesecake');
+    } else if (isVaultIsland && islandProgress == 20 && isSpPirate) {
+       checkThenArm(null, 'bait', 'Sky Pirate Swiss');
+    }
+
     // Automatically enable fuel for first 3 sections of SP. Disable fuel at last section of SP.
     var isFuelEnabled = objUser.hunting_site_atts.is_fuel_enabled;
     var fuelButton = document.getElementsByClassName('floatingIslandsHUD-fuel-button')[0];
@@ -2274,7 +2284,38 @@ function floatingIslands() {
        fireEvent(fuelButton, 'click');
     } else if (isVaultIsland && islandProgress >= 30 && isFuelEnabled) {
        fireEvent(fuelButton, 'click');
-    }		
+    }
+
+    // Use Best Trap, Charm, and Cheese for SP Boss
+    if (isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
+    	//checkThenArm(null, 'weapon', 'Chrome School of Sharks');
+        checkThenArm(null, 'weapon', 'Slumbering Boulder');
+        checkThenArm(null, 'bait', 'Cloud Cheesecake');
+        checkThenArm(null, 'trinket', 'Festive Ultimate Lucky Power Charm');
+    }
+
+    // After SP Boss is defeated, arm original
+    if (isVaultIsland && hasDefeatedEnemy) {
+        // Original charm
+        if (savedTrinket != "") {
+            checkThenArm(null, 'trinket', savedTrinket);
+        }
+        // Arm sky pirate cheese if pirate
+        if (isSpPirate) {
+            checkThenArm(null, 'bait', 'Sky Pirate Swiss');
+        } else {
+            // Original trap if not pirate
+            if (savedTrap != "") {
+                if (savedTrap.substring(savedTrap.length - 5) == ' Trap') {
+                    savedTrap = savedTrap.slice(0, -5);
+                }
+                checkThenArm(null, 'weapon', savedTrap);
+            }
+            // ERCC if not pirate
+            checkThenArm(null, 'bait', 'Extra Rich Cloud Cheesecake');
+        }
+    }
+	
 }
 
 function birthday() {
