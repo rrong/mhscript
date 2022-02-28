@@ -2267,6 +2267,14 @@ function floatingIslands() {
         chooseIslandType();
     }
 
+    // Automatically enable fuel for first 3 sections of SP. Disable fuel at last section of SP.
+    var isFuelEnabled = objUser.hunting_site_atts.is_fuel_enabled;
+    var fuelButton = document.getElementsByClassName('floatingIslandsHUD-fuel-button')[0];
+    if (isVaultIsland && islandProgress < 30 && !isFuelEnabled) {
+       fireEvent(fuelButton, 'click');
+    } else if (isVaultIsland && islandProgress >= 30 && isFuelEnabled) {
+       fireEvent(fuelButton, 'click');
+    }		
 }
 
 function birthday() {
