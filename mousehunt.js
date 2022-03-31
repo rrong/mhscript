@@ -2232,7 +2232,6 @@ function floatingIslands() {
 
     // Arm specific trap for LAI warden.
     if (!isHighTierIsland && !isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
-    	//checkThenArm(null, 'weapon', 'Chrome School of Sharks');
         checkThenArm(null, 'weapon', 'Slumbering Boulder');
     }
 
@@ -2285,6 +2284,7 @@ function floatingIslands() {
        checkThenArm(null, 'bait', 'Extra Rich Cloud Cheesecake');
     } else if (isVaultIsland && islandProgress == 20 && isSpPirate) {
        checkThenArm(null, 'bait', 'Sky Pirate Swiss');
+       checkThenArm(null, 'weapon', 'Slumbering Boulder');
     }
 
     // Automatically enable fuel for first 3 sections of SP. Disable fuel at last section of SP.
@@ -2296,7 +2296,6 @@ function floatingIslands() {
 
     // Use Best Trap, Charm, and Cheese for SP Boss
     if (isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
-    	//checkThenArm(null, 'weapon', 'Chrome School of Sharks');
         checkThenArm(null, 'weapon', 'Slumbering Boulder');
         checkThenArm(null, 'bait', 'Cloud Cheesecake');
         checkThenArm(null, 'trinket', 'Festive Ultimate Lucky Power Charm');
