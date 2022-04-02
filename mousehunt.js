@@ -2267,15 +2267,6 @@ function floatingIslands() {
         checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
     }
 
-    var currentTimeHour = new Date().getHours();
-    var autoEnterHAI = currentTimeHour >= 0 && currentTimeHour <= 8;
-
-    // Automatically enter next island if LAI, or between 00:00 and 09:59 for HAI.
-    var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
-    if ((!isHighAltitude && skyWardensCaught < 4) || autoEnterHAI) {
-        chooseIslandType();
-    }
-
     // SP Stuff below ----------------------------------------------------------------------
     var isSpPirate = isVaultIsland && objUser.hunting_site_atts.island_mod_types[3] == "sky_pirates";
 
@@ -2328,6 +2319,15 @@ function floatingIslands() {
 //     if (!objUser.hunting_site_atts.is_fuel_enabled && (isLowTierIsland || isHighTierIsland)) {
 //        fireEvent(fuelButton, 'click');
 //     }
+	
+    var currentTimeHour = new Date().getHours();
+    var autoEnterHAI = currentTimeHour >= 0 && currentTimeHour <= 8;
+
+    // Automatically enter next island if LAI, or between 00:00 and 09:59 for HAI.
+    var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
+    if ((!isHighAltitude && skyWardensCaught < 4) || autoEnterHAI) {
+        chooseIslandType();
+    }
 
 }
 
