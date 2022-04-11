@@ -2200,6 +2200,7 @@ function floatingIslands() {
 
     var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestFloatingIslands)'));
     var classButton = document.getElementsByClassName('floatingIslandsHUD-retreatButton')[0];
+    var confirmButton = document.getElementsByClassName('floatingIslandsHUD-dialog-actions')[0].getElementsByClassName('mousehuntActionButton')[1];
     var canRetreat = objUser.can_retreat;
     console.log(objUser);
 
@@ -2245,7 +2246,6 @@ function floatingIslands() {
     // Retreat once LAI fully explored.
     if (canRetreat && !isVaultIsland && hasDefeatedEnemy && islandProgress >= 40 && currentBait != "Sky Pirate Swiss Cheese") {
       fireEvent(classButton, 'click');
-      var confirmButton = document.getElementsByClassName('floatingIslandsHUD-dialog-actions')[0].getElementsByClassName('mousehuntActionButton')[1];
       fireEvent(confirmButton, 'click');
     }
 
@@ -2269,6 +2269,7 @@ function floatingIslands() {
 
     // SP Stuff below ----------------------------------------------------------------------
     var isSpPirate = isVaultIsland && objUser.hunting_site_atts.island_mod_types[3] == "sky_pirates";
+    var isSpJade = isVaultIsland && objUser.hunting_site_atts.island_mod_types[3] == "charm_bonus";
 
     // Arm ERCC automatically. For pirate, arm sky pirate after 20 steps.
     if (isVaultIsland && islandProgress == 0) {
@@ -2281,7 +2282,7 @@ function floatingIslands() {
     // Automatically enable fuel for first 3 sections of SP. Disable fuel at last section of SP.
     if (isVaultIsland && islandProgress < 30 && !isFuelEnabled) {
        fireEvent(fuelButton, 'click');
-    } else if (isVaultIsland && islandProgress >= 30 && isFuelEnabled) {
+    } else if (isVaultIsland && islandProgress >= 30 && isFuelEnabled && !isSpJade) {
        fireEvent(fuelButton, 'click');
     }
 
@@ -2290,6 +2291,12 @@ function floatingIslands() {
         checkThenArm(null, 'weapon', 'Slumbering Boulder');
         checkThenArm(null, 'bait', 'Cloud Cheesecake');
         checkThenArm(null, 'trinket', 'Festive Ultimate Lucky Power Charm');
+    }
+
+    // Retreat SP Jade island after exploring.
+    if (canRetreat && isVaultIsland && hasDefeatedEnemy && islandProgress >= 40 && isSpJade) {
+      fireEvent(classButton, 'click');
+      fireEvent(confirmButton, 'click');
     }
 
     // After SP Boss is defeated, arm original
