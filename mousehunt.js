@@ -2267,6 +2267,13 @@ function floatingIslands() {
         checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
     }
 
+    // Arm Eggstra Charge Charm for HAI boss
+//     if (isHighTierIsland && !hasDefeatedEnemy && isEnemyEncounter) {
+//       checkThenArm(null, 'trinket', 'Eggstra Charge Charm');
+//     } else if (isHighTierIsland) {
+//       checkThenArm(null, 'trinket', savedTrinket);
+//     }
+
     // SP Stuff below ----------------------------------------------------------------------
     var isSpPirate = isVaultIsland && objUser.hunting_site_atts.island_mod_types[3] == "sky_pirates";
     var isSpJade = isVaultIsland && objUser.hunting_site_atts.island_mod_types[3] == "charm_bonus";
@@ -2274,6 +2281,7 @@ function floatingIslands() {
     // Arm ERCC automatically. For pirate, arm sky pirate after 20 steps.
     if (isVaultIsland && islandProgress == 0) {
        checkThenArm(null, 'bait', 'Extra Rich Cloud Cheesecake');
+       //checkThenArm(null, 'trinket', 'Eggstra Charm');
     } else if (isVaultIsland && islandProgress == 20 && isSpPirate) {
        checkThenArm(null, 'bait', 'Sky Pirate Swiss');
        checkThenArm(null, 'weapon', 'Slumbering Boulder');
@@ -2291,6 +2299,7 @@ function floatingIslands() {
         checkThenArm(null, 'weapon', 'Slumbering Boulder');
         checkThenArm(null, 'bait', 'Cloud Cheesecake');
         checkThenArm(null, 'trinket', 'Festive Ultimate Lucky Power Charm');
+        //checkThenArm(null, 'trinket', 'Eggstra Charge Charm');
     }
 
     // Retreat SP Jade island after exploring.
@@ -2304,6 +2313,7 @@ function floatingIslands() {
         // Original charm
         if (savedTrinket != "") {
             checkThenArm(null, 'trinket', savedTrinket);
+            //checkThenArm(null, 'trinket', 'Eggstra Charm');
         }
         // Arm sky pirate cheese if pirate
         if (isSpPirate) {
@@ -2322,11 +2332,12 @@ function floatingIslands() {
     }
 
     // Enable fuel
-//     
-//     if (!objUser.hunting_site_atts.is_fuel_enabled && (isLowTierIsland || isHighTierIsland)) {
-//        fireEvent(fuelButton, 'click');
-//     }
-	
+//      if (!isFuelEnabled && (isLowTierIsland || isHighTierIsland) && islandProgress <= 37) {
+//         fireEvent(fuelButton, 'click');
+//      } else if ((isHighTierIsland || isLowTierIsland) && islandProgress > 37 && isFuelEnabled) {
+//         fireEvent(fuelButton, 'click');
+//      }
+
     var currentTimeHour = new Date().getHours();
     var autoEnterHAI = currentTimeHour >= 0 && currentTimeHour <= 8;
 
@@ -2337,6 +2348,7 @@ function floatingIslands() {
     }
 
 }
+
 
 function birthday() {
   var claimButton = document.getElementsByClassName('superBrieFactoryHUD-claimButton')[0];
