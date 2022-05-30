@@ -2233,7 +2233,7 @@ function floatingIslands() {
 
     // Arm specific trap for LAI warden.
     if (!isHighTierIsland && !isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
-        checkThenArm(null, 'weapon', 'Slumbering Boulder');
+        checkThenArm(null, 'weapon', 'Chrome Thought Obliterator');
     }
 
     // Fuel if step = 37 for HAI or LAI. Disable fuel if not 37
