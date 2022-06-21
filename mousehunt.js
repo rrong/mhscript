@@ -2060,7 +2060,8 @@ function Render(islandStatus)
         var best = [null, 0]
     for (powerType in islandStatus)
     {
-        //if (powerType == "Draconic") continue;
+        if (powerType == "Physical") continue;
+	if (powerType == "Shadow") continue;
        // else
         if (islandStatus[powerType][4] >= best[1]){
             best[0] = powerType
