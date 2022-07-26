@@ -2060,8 +2060,6 @@ function Render(islandStatus)
         var best = [null, 0]
     for (powerType in islandStatus)
     {
-        if (powerType == "Physical") continue;
-	if (powerType == "Shadow") continue;
        // else
         if (islandStatus[powerType][4] >= best[1]){
             best[0] = powerType
@@ -2235,6 +2233,7 @@ function floatingIslands() {
     // Arm specific trap for LAI warden.
     if (!isHighTierIsland && !isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
         checkThenArm(null, 'weapon', 'Chrome Thought Obliterator');
+	checkThenArm(null, 'bait', 'Empowered Brie');
     }
 
     // Fuel if step = 37 for HAI or LAI. Disable fuel if not 37
@@ -2261,11 +2260,6 @@ function floatingIslands() {
         if (savedBait != "") {
             checkThenArm(null, 'bait', savedBait);
         }
-    }
-
-   // Use specific traps for Physical HAI.
-    if (objUser.hunting_site_atts.island_name == "Physical Palisade") {
-        checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
     }
 
     // Arm Eggstra Charge Charm for HAI boss
