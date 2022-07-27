@@ -23,7 +23,7 @@
 // @run-at		document-end
 // ==/UserScript==
 
-// == Basic User Preference Setting (Begin) ==
+// == Basic User Preference Setting (Begin) =
 // // The variable in this section contain basic option will normally edit by most user to suit their own preference
 // // Reload MouseHunt page manually if edit this script while running it for immediate effect.
 
@@ -1326,6 +1326,9 @@ function eventLocationCheck(caller) {
         case 'GWH 2021':
             gwh2021();
             break;
+        case 'Folklore Forest':
+            folkloreForest();
+            break;
         default:
             break;
     }
@@ -2060,6 +2063,8 @@ function Render(islandStatus)
         var best = [null, 0]
     for (powerType in islandStatus)
     {
+        if (powerType == "Physical") continue;
+        if (powerType == "Shadow") continue;
        // else
         if (islandStatus[powerType][4] >= best[1]){
             best[0] = powerType
@@ -2233,15 +2238,15 @@ function floatingIslands() {
     // Arm specific trap for LAI warden.
     if (!isHighTierIsland && !isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
         checkThenArm(null, 'weapon', 'Chrome Thought Obliterator');
-	checkThenArm(null, 'bait', 'Empowered Brie');
+        checkThenArm(null, 'bait', 'Empowered Brie');
     }
 
     // Fuel if step = 37 for HAI or LAI. Disable fuel if not 37
-    if ((isHighTierIsland || isLowTierIsland) && islandProgress == 37 && !isFuelEnabled) {
-        fireEvent(fuelButton, 'click');
-    } else if ((isHighTierIsland || isLowTierIsland) && islandProgress != 37 && isFuelEnabled) {
-        fireEvent(fuelButton, 'click');
-    }
+//     if ((isHighTierIsland || isLowTierIsland) && islandProgress == 37 && !isFuelEnabled) {
+//         fireEvent(fuelButton, 'click');
+//     } else if ((isHighTierIsland || isLowTierIsland) && islandProgress != 37 && isFuelEnabled) {
+//         fireEvent(fuelButton, 'click');
+//     }
 
     // Retreat once LAI fully explored.
     if (canRetreat && !isVaultIsland && hasDefeatedEnemy && islandProgress >= 40 && currentBait != "Sky Pirate Swiss Cheese") {
@@ -2327,14 +2332,29 @@ function floatingIslands() {
     }
 
     // Enable fuel
-//      if (!isFuelEnabled && (isLowTierIsland || isHighTierIsland) && islandProgress <= 37) {
-//         fireEvent(fuelButton, 'click');
-//      } else if ((isHighTierIsland || isLowTierIsland) && islandProgress > 37 && isFuelEnabled) {
-//         fireEvent(fuelButton, 'click');
-//      }
+      if (!isFuelEnabled && (isLowTierIsland || isHighTierIsland) && islandProgress <= 37) {
+         fireEvent(fuelButton, 'click');
+      } else if ((isHighTierIsland || isLowTierIsland) && islandProgress > 37 && isFuelEnabled) {
+         fireEvent(fuelButton, 'click');
+      }
+
+//     var jetstreamP = document.getElementsByClassName('QuestFloatingIslandsJetStreamCampHUD-windLevelPointer')[0];
+//     var jetstreamS = document.getElementsByClassName('QuestFloatingIslandsJetStreamCampHUD-statIndicator')[0];
+
+//     if (jetstreamP && jetstreamS) {
+//         var jetStreamPos = jetstreamP.textContent;
+//         var jetStreamSpdWd = jetstreamS.textContent;
+//         var jetStreamSpd = (jetStreamSpdWd.match(/\+(\d) Speed/g) || []).map(e => e.replace(/\+(\d) Speed/g, '$1'));
+
+//         if (islandProgress < 38 - jetStreamSpd && !isFuelEnabled && jetStreamPos < 77) {
+//             fireEvent(fuelButton, 'click');
+//         } else if ((islandProgress >= 38 - jetStreamSpd || jetStreamPos >= 77) && isFuelEnabled) {
+//             fireEvent(fuelButton, 'click');
+//         }
+//     }
 
     var currentTimeHour = new Date().getHours();
-    var autoEnterHAI = currentTimeHour >= 0 && currentTimeHour <= 8;
+    var autoEnterHAI = false; //currentTimeHour >= 0 && currentTimeHour <= 8;
 
     // Automatically enter next island if LAI, or between 00:00 and 09:59 for HAI.
     var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
@@ -2405,6 +2425,65 @@ function halloween2021() {
     var doneButton = document.getElementsByClassName('halloweenBoilingCauldronRecipeView-doneButton')[0];
     if (doneButton) {
         fireEvent(doneButton, 'click');
+    }
+}
+
+function folkloreForest() {
+    var currentLocation = getPageVariable("user.environment_name");
+    if (currentLocation.indexOf("Foreword Farm") > -1) {
+        var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestForewordFarm)'));
+        console.log(objUser);
+
+        var magicEssenceNumber = objUser.items.magic_essence_craft_item.quantity;
+        var mythicalMulchNumber = objUser.items.mythical_mulch_stat_item.quantity;
+        var papyrusSeedNumber = objUser.items.papyrus_seed_stat_item.quantity;
+
+        var canClaim = objUser.harvest_bin.can_claim;
+
+        if (canClaim) {
+            var claimButton = document.getElementsByClassName('forewordFarmView-harvestBin-claimButton')[0];
+            fireEvent(claimButton, 'click');
+        }
+
+        // Check for ability to plant outright
+        for (let i = 0; i < 3; i++) {
+            if (objUser.plots[i].can_plant_anything && !objUser.plots[i].is_growing) {
+                var plantButton = document.getElementsByClassName('forewordFarmPlotView-plot-plantButton')[i];
+                fireEvent(plantButton, 'click');
+
+                // Prioritize parable over mythical plant.
+                if (parseInt(magicEssenceNumber, 10) >= 3 && parseInt(mythicalMulchNumber, 10) >= 20 && parseInt(papyrusSeedNumber, 10) >= 10) {
+                    var queueButtonParable = document.getElementsByClassName('folkloreForestRegionView-button big')[3];
+                    fireEvent(queueButtonParable, 'click');
+                } else if (parseInt(magicEssenceNumber, 10) >= 3 && parseInt(papyrusSeedNumber, 10) >= 10) {
+                    var queueButtonMythical = document.getElementsByClassName('folkloreForestRegionView-button big')[1];
+                    fireEvent(queueButtonMythical, 'click');
+                }
+                var closeButton = document.getElementsByClassName('folkloreForestRegionView-dialog-continueButton')[0];
+                fireEvent(closeButton, 'click');
+                break;
+            }
+        }
+
+        // Check for ability to queue
+        for (let i = 0; i < 3; i++) {
+            if (objUser.plots[i].can_plant_anything && !objUser.plots[i].is_queue_full) {
+                var plantButton = document.getElementsByClassName('forewordFarmPlotView-plot-plantButton')[i];
+                fireEvent(plantButton, 'click');
+
+                // Prioritize parable over mythical plant.
+                if (parseInt(magicEssenceNumber, 10) >= 3 && parseInt(mythicalMulchNumber, 10) >= 20 && parseInt(papyrusSeedNumber, 10) >= 10) {
+                    var queueButtonParable = document.getElementsByClassName('folkloreForestRegionView-button big')[3];
+                    fireEvent(queueButtonParable, 'click');
+                } else if (parseInt(magicEssenceNumber, 10) >= 3 && parseInt(papyrusSeedNumber, 10) >= 10) {
+                    var queueButtonMythical = document.getElementsByClassName('folkloreForestRegionView-button big')[1];
+                    fireEvent(queueButtonMythical, 'click');
+                }
+                var closeButton = document.getElementsByClassName('folkloreForestRegionView-dialog-continueButton')[0];
+                fireEvent(closeButton, 'click');
+                break;
+            }
+        }
     }
 }
 
@@ -7112,6 +7191,7 @@ function embedTimer(targetPage) {
                 preferenceHTMLStr += '<option value="FG/AR">FG => AR</option>';
                 preferenceHTMLStr += '<option value="Fiery Warpath">Fiery Warpath</option>';
                 preferenceHTMLStr += '<option value="Floating Islands">Floating Islands</option>';
+                preferenceHTMLStr += '<option value="Folklore Forest">Folklore Forest</option>';
                 preferenceHTMLStr += '<option value="Fort Rox">Fort Rox</option>';
                 preferenceHTMLStr += '<option value="Furoma Rift">Furoma Rift</option>';
                 preferenceHTMLStr += '<option value="GES">Gnawnian Express Station</option>';
