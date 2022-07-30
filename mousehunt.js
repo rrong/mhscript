@@ -2447,26 +2447,27 @@ function folkloreForest() {
 
         // Check for ability to simultaneously plant 3 tier-2s
         var canPlantThreeTierTwo = false;
-        if (parseInt(magicEssenceNumber, 10) >= 9 && parseInt(mythicalMulchNumber, 10) >= 60 && parseInt(papyrusSeedNumber, 10) >= 30) {
-            for (let i = 0; i < 3; i++) {
-                if (!(objUser.plots[i].can_plant_anything && !objUser.plots[i].is_growing)) {
-                    break;
-                }
-                if (i == 2) {
-                    canPlantThreeTierTwo = true;
-                }
-            }
-
-            if (canPlantThreeTierTwo) {
+        if (parseInt(mythicalMulchNumber, 10) >= 60) {
+            if (parseInt(magicEssenceNumber, 10) >= 9 && parseInt(papyrusSeedNumber, 10) >= 30) {
                 for (let i = 0; i < 3; i++) {
-                    var plantButton = document.getElementsByClassName('forewordFarmPlotView-plot-plantButton')[i];
-                    fireEvent(plantButton, 'click');
-                    var queueButtonParable = document.getElementsByClassName('folkloreForestRegionView-button big')[3];
-                    fireEvent(queueButtonParable, 'click');
-                    fireEvent(closeButton, 'click');
+                    if (!(objUser.plots[i].can_plant_anything && !objUser.plots[i].is_growing)) {
+                        break;
+                    }
+                    if (i == 2) {
+                        canPlantThreeTierTwo = true;
+                    }
+                }
+
+                if (canPlantThreeTierTwo) {
+                    for (let i = 0; i < 3; i++) {
+                        var plantButton = document.getElementsByClassName('forewordFarmPlotView-plot-plantButton')[i];
+                        fireEvent(plantButton, 'click');
+                        var queueButtonParable = document.getElementsByClassName('folkloreForestRegionView-button big')[3];
+                        fireEvent(queueButtonParable, 'click');
+                        fireEvent(closeButton, 'click');
+                    }
                 }
             }
-
         } else {
             // Check for ability to plant tier-1 outright
             for (let i = 0; i < 3; i++) {
