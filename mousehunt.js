@@ -2481,7 +2481,6 @@ function folkloreForest() {
                     }
                     var closeButton = document.getElementsByClassName('folkloreForestRegionView-dialog-continueButton')[0];
                     fireEvent(closeButton, 'click');
-                    break;
                 }
             }
         }
