@@ -2485,6 +2485,48 @@ function folkloreForest() {
                 }
             }
         }
+    } else if (currentLocation.indexOf("Prologue Pond") > -1) {
+        var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestProloguePond)'));
+        console.log(objUser);
+        var fuelOn = objUser.is_fuel_enabled;
+        var fuelButton = document.getElementsByClassName('folkloreForestRegionView-fuel-toggleButton')[0];
+        var chumOn = objUser.is_chum_enabled;
+        var chumButtonTurnOn = document.getElementsByClassName('prologuePondView-chumButton')[2];
+        var chumButtonTurnOff = document.getElementsByClassName('prologuePondView-chumButton active')[0];
+        if (objUser.bait == "stormy_clamembert_cheese") {
+            // If fuel off, turn on
+            if (!fuelOn) {
+                fireEvent(fuelButton, 'click');
+            }
+            checkThenArm(null, 'trinket', 'Rift Spooky Charm');
+        } else if (objUser.bait == "clamembert_cheese") {
+            // If fuel on, turn off
+            if (fuelOn) {
+                fireEvent(fuelButton, 'click');
+            }
+            // If chum on, turn off
+            if (chumOn) {
+                fireEvent(chumButtonTurnOff, 'click');
+            }
+            checkThenArm(null, 'trinket', 'Super Cactus Charm');
+        } else if (objUser.bait == "grubbeen_cheese") {
+            // If fuel on, turn off
+            if (fuelOn) {
+                fireEvent(fuelButton, 'click');
+            }
+            // If chum off, turn on
+            if (!chumOn) {
+                console.log(chumButtonTurnOn);
+                fireEvent(chumButtonTurnOn, 'click');
+            }
+            checkThenArm(null, 'trinket', 'Super Cactus Charm');
+        } else {
+            // If fuel on, turn off
+            if (fuelOn) {
+                fireEvent(fuelButton, 'click');
+            }
+            disarmTrap('trinket');
+        }
     }
 }
 
