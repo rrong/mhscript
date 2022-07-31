@@ -2448,7 +2448,7 @@ function folkloreForest() {
         // Check for ability to simultaneously plant 3 tier-2s
         var canPlantThreeTierTwo = false;
         if (parseInt(mythicalMulchNumber, 10) >= 60) {
-            if (parseInt(magicEssenceNumber, 10) >= 9 && parseInt(papyrusSeedNumber, 10) >= 30) {
+            if (parseInt(magicEssenceNumber.replace(/,/g, '')) >= 9 && parseInt(papyrusSeedNumber, 10) >= 30) {
                 for (let i = 0; i < 3; i++) {
                     if (!(objUser.plots[i].can_plant_anything && !objUser.plots[i].is_growing)) {
                         break;
@@ -2464,6 +2464,7 @@ function folkloreForest() {
                         fireEvent(plantButton, 'click');
                         var queueButtonParable = document.getElementsByClassName('folkloreForestRegionView-button big')[3];
                         fireEvent(queueButtonParable, 'click');
+                        var closeButton = document.getElementsByClassName('folkloreForestRegionView-dialog-continueButton')[0];
                         fireEvent(closeButton, 'click');
                     }
                 }
@@ -2475,7 +2476,7 @@ function folkloreForest() {
                     var plantButton = document.getElementsByClassName('forewordFarmPlotView-plot-plantButton')[i];
                     fireEvent(plantButton, 'click');
 
-                    if (parseInt(magicEssenceNumber, 10) >= 3 && parseInt(papyrusSeedNumber, 10) >= 10) {
+                    if (parseInt(magicEssenceNumber.replace(/,/g, '')) >= 3 && parseInt(papyrusSeedNumber, 10) >= 10) {
                         var queueButtonMythical = document.getElementsByClassName('folkloreForestRegionView-button big')[1];
                         fireEvent(queueButtonMythical, 'click');
                     }
