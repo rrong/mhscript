@@ -2527,6 +2527,32 @@ function folkloreForest() {
             }
             disarmTrap('trinket');
         }
+    } else if (currentLocation.indexOf("Table of Contents") > -1) {
+        var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestTableOfContents)'));
+        console.log(objUser);
+
+        var bait = objUser.bait;
+        var fuelOn = objUser.is_fuel_enabled;
+        var huntsRemaining = objUser.current_book.hunts_remaining;
+        var wordCount = objUser.current_book.word_count;
+        var fuelButton = document.getElementsByClassName('folkloreForestRegionView-fuel-toggleButton')[0];
+        var retreatButton = document.getElementsByClassName('tableOfContentsProgressView-cancelButton active')[0];
+        var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents')[1];
+
+        if (bait == "second_draft_derby_cheese") {
+            if (wordCount >= 2000) {
+                fireEvent(retreatButton, 'click');
+                fireEvent(confirmButton, 'click');
+            } else if (huntsRemaining > 18 && !fuelOn) {
+                fireEvent(fuelButton, 'click');
+            } else if (huntsRemaining <= 18 && fuelOn) {
+                fireEvent(fuelButton, 'click');
+            }
+        } else if (bait == "final_draft_derby_cheese") {
+            if (!fuelOn) {
+                fireEvent(fuelButton, 'click');
+            }
+        }
     }
 }
 
