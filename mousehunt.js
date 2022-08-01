@@ -49,7 +49,7 @@ var enableTrapCheck = true;
 // // Trap check time different value (00 minutes - 45 minutes)
 // // Note: Every player had different trap check time, set your trap check time here. It only take effect if enableTrapCheck = true;
 // // Example: If you have XX:00 trap check time then set 00. If you have XX:45 trap check time, then set 45.
-var trapCheckTimeDiff = 15;
+var trapCheckTimeDiff = 30;
 
 // // Extra delay time to trap check. (in seconds)
 // // Note: It only take effect if enableTrapCheck = true;
@@ -2434,6 +2434,8 @@ function folkloreForest() {
         var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestForewordFarm)'));
         console.log(objUser);
 
+        checkThenArm(null, 'weapon', 'Slumbering Boulder');
+
         var magicEssenceNumber = objUser.items.magic_essence_craft_item.quantity;
         var mythicalMulchNumber = objUser.items.mythical_mulch_stat_item.quantity;
         var papyrusSeedNumber = objUser.items.papyrus_seed_stat_item.quantity;
@@ -2493,12 +2495,15 @@ function folkloreForest() {
         var chumOn = objUser.is_chum_enabled;
         var chumButtonTurnOn = document.getElementsByClassName('prologuePondView-chumButton')[2];
         var chumButtonTurnOff = document.getElementsByClassName('prologuePondView-chumButton active')[0];
+
+        checkThenArm(null, 'weapon', 'Chrome School of Sharks');
+
         if (objUser.bait == "stormy_clamembert_cheese") {
             // If fuel off, turn on
             if (!fuelOn) {
                 fireEvent(fuelButton, 'click');
             }
-            checkThenArm(null, 'trinket', 'Rift Spooky Charm');
+            checkThenArm(null, 'trinket', 'Super Cactus Charm');
         } else if (objUser.bait == "clamembert_cheese") {
             // If fuel on, turn off
             if (fuelOn) {
@@ -2531,21 +2536,25 @@ function folkloreForest() {
         var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestTableOfContents)'));
         console.log(objUser);
 
+        checkThenArm(null, 'weapon', 'Chrome Thought Obliterator');
+
         var bait = objUser.bait;
         var fuelOn = objUser.is_fuel_enabled;
         var huntsRemaining = objUser.current_book.hunts_remaining;
         var wordCount = objUser.current_book.word_count;
         var fuelButton = document.getElementsByClassName('folkloreForestRegionView-fuel-toggleButton')[0];
         var retreatButton = document.getElementsByClassName('tableOfContentsProgressView-cancelButton active')[0];
-        var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents')[1];
+
+        var needFuel = (2000 - wordCount + 65) / huntsRemaining > 65.0;
 
         if (bait == "second_draft_derby_cheese") {
             if (wordCount >= 2000) {
                 fireEvent(retreatButton, 'click');
+                var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents')[1];
                 fireEvent(confirmButton, 'click');
-            } else if (huntsRemaining > 18 && !fuelOn) {
+            } else if (needFuel && !fuelOn) {
                 fireEvent(fuelButton, 'click');
-            } else if (huntsRemaining <= 18 && fuelOn) {
+            } else if (!needFuel && fuelOn) {
                 fireEvent(fuelButton, 'click');
             }
         } else if (bait == "final_draft_derby_cheese") {
