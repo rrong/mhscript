@@ -2545,7 +2545,7 @@ function folkloreForest() {
         var fuelButton = document.getElementsByClassName('folkloreForestRegionView-fuel-toggleButton')[0];
         var retreatButton = document.getElementsByClassName('tableOfContentsProgressView-cancelButton active')[0];
 
-        var needFuel = (2000 - wordCount + 65) / huntsRemaining > 65.0;
+        var needFuel = (2000 - wordCount + 70) / huntsRemaining > 65.0;
 
         if (bait == "second_draft_derby_cheese") {
             if (wordCount >= 2000) {
