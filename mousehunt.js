@@ -2561,6 +2561,11 @@ function folkloreForest() {
             if (!fuelOn) {
                 fireEvent(fuelButton, 'click');
             }
+	    if (wordCount >= 4000 && huntsRemaining <= 1 && objUser.next_book.words_until > 2000) {
+                fireEvent(retreatButton, 'click');
+                var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents')[1];
+                fireEvent(confirmButton, 'click');
+            }
         }
     }
 }
