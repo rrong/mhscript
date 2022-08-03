@@ -2299,7 +2299,7 @@ function floatingIslands(autoEnterHAI) {
        checkThenArm(null, 'bait', 'Extra Rich Cloud Cheesecake');
     } else if (isVaultIsland && islandProgress == 20 && isSpPirate) {
        checkThenArm(null, 'bait', 'Sky Pirate Swiss');
-       checkThenArm(null, 'weapon', 'Slumbering Boulders');
+       checkThenArm(null, 'weapon', 'Slumbering Boulder');
     }
 
     // Automatically enable fuel for first 3 sections of SP. Disable fuel at last section of SP.
