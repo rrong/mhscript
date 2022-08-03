@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        MouseHunt AutoBot UPDATED
 // @author      Nevocaine, Gawz, nobodyrandom, Ooi Keng Siang, CnN
-// @version    	1.3.5
+// @version     1.3.5
 // @description Script automating MH horn sounding and gifting, functional as of 23/09/2020. Updating the outdated script by nobodyrandom, who adapted the original versions by Ooi and CnN. Latest inputs courtesy of pokem and KyleLowryAintNoSpotupShooter.
 // @icon        https://raw.githubusercontent.com/nobodyrandom/mhAutobot/master/resource/mice.png
 // @require     https://code.jquery.com/jquery-2.2.2.min.js
@@ -9,21 +9,21 @@
 // @require     https://greasyfork.org/scripts/16046-ocrad/code/OCRAD.js?version=100053
 // @require     https://greasyfork.org/scripts/16036-mh-auto-kr-solver/code/MH%20Auto%20KR%20Solver.js?version=102270
 // @namespace   https://greasyfork.org/en/users/440271
-// @license 	GPL-3.0+; http://www.gnu.org/copyleft/gpl.html
-// @include		http://mousehuntgame.com/*
-// @include		https://mousehuntgame.com/*
-// @include		http://www.mousehuntgame.com/*
-// @include		https://www.mousehuntgame.com/*
-// @include		http://apps.facebook.com/mousehunt/*
-// @include		https://apps.facebook.com/mousehunt/*
-// @include		http://hi5.com/friend/games/MouseHunt*
-// @include		http://mousehunt.hi5.hitgrab.com/*
-// @grant		unsafeWindow
-// @grant		GM_info
-// @run-at		document-end
+// @license     GPL-3.0+; http://www.gnu.org/copyleft/gpl.html
+// @include     http://mousehuntgame.com/*
+// @include     https://mousehuntgame.com/*
+// @include     http://www.mousehuntgame.com/*
+// @include     https://www.mousehuntgame.com/*
+// @include     http://apps.facebook.com/mousehunt/*
+// @include     https://apps.facebook.com/mousehunt/*
+// @include     http://hi5.com/friend/games/MouseHunt*
+// @include     http://mousehunt.hi5.hitgrab.com/*
+// @grant       unsafeWindow
+// @grant       GM_info
+// @run-at      document-end
 // ==/UserScript==
 
-// == Basic User Preference Setting (Begin) =
+// == Basic User Preference Setting (Begin) ==
 // // The variable in this section contain basic option will normally edit by most user to suit their own preference
 // // Reload MouseHunt page manually if edit this script while running it for immediate effect.
 
@@ -920,15 +920,15 @@ function exeScript() {
             }
         }     else if (mhPlatform) {
         if (window.location.href == "http://www.mousehuntgame.com/" ||
-			window.location.href == "http://www.mousehuntgame.com/#" ||
-			window.location.href == "http://www.mousehuntgame.com/?switch_to=standard" ||
-			window.location.href == "https://www.mousehuntgame.com/" ||
-			window.location.href == "https://www.mousehuntgame.com/#" ||
-			window.location.href == "https://www.mousehuntgame.com/?switch_to=standard" ||
-			window.location.href == "https://www.mousehuntgame.com/index.php" ||
-			window.location.href == "https://www.mousehuntgame.com/camp.php" ||
-			window.location.href.indexOf("mousehuntgame.com/index.php") >= 0 ||
-			window.location.href.indexOf("mousehuntgame.com/camp.php") >= 0) {
+            window.location.href == "http://www.mousehuntgame.com/#" ||
+            window.location.href == "http://www.mousehuntgame.com/?switch_to=standard" ||
+            window.location.href == "https://www.mousehuntgame.com/" ||
+            window.location.href == "https://www.mousehuntgame.com/#" ||
+            window.location.href == "https://www.mousehuntgame.com/?switch_to=standard" ||
+            window.location.href == "https://www.mousehuntgame.com/index.php" ||
+            window.location.href == "https://www.mousehuntgame.com/camp.php" ||
+            window.location.href.indexOf("mousehuntgame.com/index.php") >= 0 ||
+            window.location.href.indexOf("mousehuntgame.com/camp.php") >= 0) {
                 // page to execute the script!
 
                 // make sure all the preference already loaded
@@ -1311,8 +1311,11 @@ function eventLocationCheck(caller) {
         case 'Valour Rift':
             vRift();
             break;
+        case 'Floating Islands - Auto HAI':
+            floatingIslands(true);
+            break;
         case 'Floating Islands':
-            floatingIslands();
+            floatingIslands(false);
             break;
         case 'Birthday':
             birthday();
@@ -1841,9 +1844,9 @@ function bwRift() {
         }
     }
     /*else if(strChamberName == 'INGRESS'){
-	}
-	else if(strChamberName == 'FROZEN'){
-	}*/
+    }
+    else if(strChamberName == 'FROZEN'){
+    }*/
     else {
         for (var prop in objTemp) {
             if (objTemp.hasOwnProperty(prop))
@@ -2023,8 +2026,8 @@ const IslandIndexDefault=
               'ore_bonus':[2,1.4,1.3,1.1],
               'paragon_cache':[7,3,2,1.5],
               'shrine':[10000000,3,2,1.5],
-			  'pirate':[1,1,1,1],
-			  'loot_cache':[100,99,98,97]
+              'pirate':[1,1,1,1],
+              'loot_cache':[100,99,98,97]
           };
         const HAI_Index=
           {
@@ -2034,8 +2037,8 @@ const IslandIndexDefault=
               'ore_bonus':[2.7,2.6,2.5,2.4],
               'paragon_cache':[10000000,1.02,1.01,1],
               'shrine':[1.03,1.02,1.01,1],
-			  'pirate':[1,1,1,1],
-			  'loot_cache':[100,99,98,97]
+              'pirate':[1,1,1,1],
+              'loot_cache':[100,99,98,97]
           };
 const target_test=['sky_cheese','empty_sky','shrine','gem_bonus'];
 function isNullOrUndefined(obj){
@@ -2063,8 +2066,7 @@ function Render(islandStatus)
         var best = [null, 0]
     for (powerType in islandStatus)
     {
-        if (powerType == "Physical") continue;
-        if (powerType == "Shadow") continue;
+        //if (powerType == "Draconic") continue;
        // else
         if (islandStatus[powerType][4] >= best[1]){
             best[0] = powerType
@@ -2081,6 +2083,7 @@ function Render(islandStatus)
             target2.parentNode.insertBefore(mask,target2)
             mask.appendChild(target2);
         }
+
     var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestFloatingIslands)'));
     var isHighAltitude = objUser.hunting_site_atts.is_high_altitude;
     var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
@@ -2105,14 +2108,14 @@ function CalculateIndex(target,is_high_altitude)
     var synergy=is_high_altitude?synergy_HAI:synergy_LAI;
     var gem_bonus_count=0;
     var ore_bonus_count=0;
-	var loot_cache_count=0;
+    var loot_cache_count=0;
     if (target.length<4)return -1;
     var index=is_high_altitude?HAI_Index:LAI_Index;
     for(var i=0;i<4;i++)
     {
         if(target[i]=='gem_bonus')gem_bonus_count++;
         if(target[i]=='ore_bonus')ore_bonus_count++;
-		if(target[i]=='loot_cache')loot_cache_count++;
+        if(target[i]=='loot_cache')loot_cache_count++;
         result=result*index[target[i]][i];
     }
     result=Math.sqrt(result*(Math.max(1,Math.pow(synergy,Math.max(gem_bonus_count+loot_cache_count*synergy_lootCache,ore_bonus_count+loot_cache_count*synergy_lootCache)-1))));
@@ -2121,7 +2124,7 @@ function CalculateIndex(target,is_high_altitude)
 
 function chooseIslandType() {
 
-      var startButton = document.getElementsByClassName('floatingIslandsHUD-skyMapButton ')[0];
+    var startButton = document.getElementsByClassName('floatingIslandsHUD-skyMapButton ')[0];
     var startButton2 = document.getElementsByClassName('floatingIslandsHUD-launchPad')[0];
 
   const originalOpen = XMLHttpRequest.prototype.open;
@@ -2165,7 +2168,7 @@ function chooseIslandType() {
                var temp=data[i].type;
                if(temp.indexOf("paragon_cache")>-1)temp="paragon_cache";
                if(temp.indexOf("shrine")>-1)temp="shrine";
-			   if(temp.indexOf("pirate")>-1)temp="pirate";//Experimental,Waiting for correct type
+               if(temp.indexOf("pirate")>-1)temp="pirate";//Experimental,Waiting for correct type
                islandStatus_Raw.push(temp);
            }
               console.log("Memorize Complete");
@@ -2181,8 +2184,8 @@ function chooseIslandType() {
               console.log(JSON.stringify(islandStatus));
               Render(islandStatus);
         }
-		}
-		catch (error) {
+        }
+        catch (error) {
           console.log(
             "Failed to process server response for floating_islands.php"
           );
@@ -2198,19 +2201,16 @@ function chooseIslandType() {
   }
 }
 
-function floatingIslands() {
+function floatingIslands(autoEnterHAI) {
     if (GetCurrentLocation().indexOf("Floating Islands") < 0)
         return;
 
     var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestFloatingIslands)'));
     var classButton = document.getElementsByClassName('floatingIslandsHUD-retreatButton')[0];
-    var confirmButton = document.getElementsByClassName('floatingIslandsHUD-dialog-actions')[0].getElementsByClassName('mousehuntActionButton')[1];
     var canRetreat = objUser.can_retreat;
-    console.log(objUser);
 
     // True when island is HAI. is_high_altitude is true when HAI or wardens caught == 4.
     var isHighTierIsland = objUser.hunting_site_atts.is_high_tier_island;
-    var isLowTierIsland = objUser.hunting_site_atts.is_low_tier_island;
     var isHighAltitude = objUser.hunting_site_atts.is_high_altitude;
     var isVaultIsland = objUser.hunting_site_atts.is_vault_island;
     var isFuelEnabled = objUser.hunting_site_atts.is_fuel_enabled;
@@ -2226,10 +2226,15 @@ function floatingIslands() {
     var savedTrinket = document.getElementsByClassName('floatingIslandsHUD-savedTrapSetup-item-name')[3].textContent;
 
     console.log("VAULT: " + !isVaultIsland);
+    console.log("HAI: " + isHighTierIsland);
+    console.log("Boss: " + isEnemyEncounter);
+    console.log("Defeat: " + hasDefeatedEnemy);
     console.log("Saved Base: " + savedBase);
     console.log("Saved Bait: " + savedBait);
     console.log("Saved Trap: " + savedTrap);
     console.log("Saved Trinket: " + savedTrinket);
+    console.log("Auto HAI: " + autoEnterHAI);
+    console.log(objUser);
 
     var currentBait = JSON.parse(getPageVariable('JSON.stringify(user)')).bait_name;
     var currentWeapon = JSON.parse(getPageVariable('JSON.stringify(user)')).weapon_name;
@@ -2237,20 +2242,26 @@ function floatingIslands() {
 
     // Arm specific trap for LAI warden.
     if (!isHighTierIsland && !isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
-        checkThenArm(null, 'weapon', 'Chrome Thought Obliterator');
+        checkThenArm(null, 'weapon', 'Slumbering Boulder');
         checkThenArm(null, 'bait', 'Empowered Brie');
     }
 
-    // Fuel if step = 37 for HAI or LAI. Disable fuel if not 37
-//     if ((isHighTierIsland || isLowTierIsland) && islandProgress == 37 && !isFuelEnabled) {
-//         fireEvent(fuelButton, 'click');
-//     } else if ((isHighTierIsland || isLowTierIsland) && islandProgress != 37 && isFuelEnabled) {
-//         fireEvent(fuelButton, 'click');
-//     }
+    /*
+    // Easter stuff
+    if (isHighTierIsland && !isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
+        checkThenArm(null, 'charm', ['Eggstra Charge Charm', 'Eggstra Charm']);
+    }
+    if (isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
+        checkThenArm(null, 'charm', ['Eggstra Charge Charm', 'Eggstra Charm']);
+    }
+    if (hasDefeatedEnemy) {
+        checkThenArm(null, 'charm', ['Rift Tarnished Charm', savedTrinket])
+    }*/
 
-    // Retreat once LAI fully explored.
+    // Retreat once LAI or HAI fully explored (and not hunting pirates).
     if (canRetreat && !isVaultIsland && hasDefeatedEnemy && islandProgress >= 40 && currentBait != "Sky Pirate Swiss Cheese") {
       fireEvent(classButton, 'click');
+      var confirmButton = document.getElementsByClassName('floatingIslandsHUD-dialog-actions')[0].getElementsByClassName('mousehuntActionButton')[1];
       fireEvent(confirmButton, 'click');
     }
 
@@ -2267,103 +2278,38 @@ function floatingIslands() {
         }
     }
 
-    // Arm Eggstra Charge Charm for HAI boss
-//     if (isHighTierIsland && !hasDefeatedEnemy && isEnemyEncounter) {
-//       checkThenArm(null, 'trinket', 'Eggstra Charge Charm');
-//     } else if (isHighTierIsland) {
-//       checkThenArm(null, 'trinket', savedTrinket);
-//     }
+    // Use specific traps for Physical HAI.
+    if (objUser.hunting_site_atts.island_name == "Physical Palisade") {
+        checkThenArm(null, 'weapon', 'Smoldering Stone Sentinel');
+    }
+
+    // Automatically enter next island if LAI.
+    var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
+    console.log("High Alt: " + isHighAltitude + " High Tier: " + isHighTierIsland + " Sky Wardens Caught: " + skyWardensCaught)
+    if (!isHighTierIsland && (skyWardensCaught < 4 || autoEnterHAI)) {
+        console.log("choosing island")
+        chooseIslandType();
+    }
 
     // SP Stuff below ----------------------------------------------------------------------
     var isSpPirate = isVaultIsland && objUser.hunting_site_atts.island_mod_types[3] == "sky_pirates";
-    var isSpJade = isVaultIsland && objUser.hunting_site_atts.island_mod_types[3] == "charm_bonus";
 
     // Arm ERCC automatically. For pirate, arm sky pirate after 20 steps.
     if (isVaultIsland && islandProgress == 0) {
        checkThenArm(null, 'bait', 'Extra Rich Cloud Cheesecake');
-       //checkThenArm(null, 'trinket', 'Eggstra Charm');
     } else if (isVaultIsland && islandProgress == 20 && isSpPirate) {
        checkThenArm(null, 'bait', 'Sky Pirate Swiss');
-       checkThenArm(null, 'weapon', 'Slumbering Boulder');
+       checkThenArm(null, 'weapon', 'Slumbering Boulders');
     }
 
     // Automatically enable fuel for first 3 sections of SP. Disable fuel at last section of SP.
     if (isVaultIsland && islandProgress < 30 && !isFuelEnabled) {
        fireEvent(fuelButton, 'click');
-    } else if (isVaultIsland && islandProgress >= 30 && isFuelEnabled && !isSpJade) {
+    } else if (isVaultIsland && islandProgress >= 30 && isFuelEnabled) {
        fireEvent(fuelButton, 'click');
     }
 
-    // Use Best Trap, Charm, and Cheese for SP Boss
-    if (isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
-        checkThenArm(null, 'weapon', 'Slumbering Boulder');
-        checkThenArm(null, 'bait', 'Cloud Cheesecake');
-        checkThenArm(null, 'trinket', 'Festive Ultimate Lucky Power Charm');
-        //checkThenArm(null, 'trinket', 'Eggstra Charge Charm');
-    }
-
-    // Retreat SP Jade island after exploring.
-    if (canRetreat && isVaultIsland && hasDefeatedEnemy && islandProgress >= 40 && isSpJade) {
-      fireEvent(classButton, 'click');
-      fireEvent(confirmButton, 'click');
-    }
-
-    // After SP Boss is defeated, arm original
-    if (isVaultIsland && hasDefeatedEnemy) {
-        // Original charm
-        if (savedTrinket != "") {
-            checkThenArm(null, 'trinket', savedTrinket);
-            //checkThenArm(null, 'trinket', 'Eggstra Charm');
-        }
-        // Arm sky pirate cheese if pirate
-        if (isSpPirate) {
-            checkThenArm(null, 'bait', 'Sky Pirate Swiss');
-        } else {
-            // Original trap if not pirate
-            if (savedTrap != "") {
-                if (savedTrap.substring(savedTrap.length - 5) == ' Trap') {
-                    savedTrap = savedTrap.slice(0, -5);
-                }
-                checkThenArm(null, 'weapon', savedTrap);
-            }
-            // ERCC if not pirate
-            checkThenArm(null, 'bait', 'Extra Rich Cloud Cheesecake');
-        }
-    }
-
-    // Enable fuel
-      if (!isFuelEnabled && (isLowTierIsland || isHighTierIsland) && islandProgress <= 37) {
-         fireEvent(fuelButton, 'click');
-      } else if ((isHighTierIsland || isLowTierIsland) && islandProgress > 37 && isFuelEnabled) {
-         fireEvent(fuelButton, 'click');
-      }
-
-//     var jetstreamP = document.getElementsByClassName('QuestFloatingIslandsJetStreamCampHUD-windLevelPointer')[0];
-//     var jetstreamS = document.getElementsByClassName('QuestFloatingIslandsJetStreamCampHUD-statIndicator')[0];
-
-//     if (jetstreamP && jetstreamS) {
-//         var jetStreamPos = jetstreamP.textContent;
-//         var jetStreamSpdWd = jetstreamS.textContent;
-//         var jetStreamSpd = (jetStreamSpdWd.match(/\+(\d) Speed/g) || []).map(e => e.replace(/\+(\d) Speed/g, '$1'));
-
-//         if (islandProgress < 38 - jetStreamSpd && !isFuelEnabled && jetStreamPos < 77) {
-//             fireEvent(fuelButton, 'click');
-//         } else if ((islandProgress >= 38 - jetStreamSpd || jetStreamPos >= 77) && isFuelEnabled) {
-//             fireEvent(fuelButton, 'click');
-//         }
-//     }
-
-    var currentTimeHour = new Date().getHours();
-    var autoEnterHAI = false; //currentTimeHour >= 0 && currentTimeHour <= 8;
-
-    // Automatically enter next island if LAI, or between 00:00 and 09:59 for HAI.
-    var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
-    if ((!isHighAltitude && skyWardensCaught < 4) || autoEnterHAI) {
-        chooseIslandType();
-    }
-
 }
-
 
 function birthday() {
   var claimButton = document.getElementsByClassName('superBrieFactoryHUD-claimButton')[0];
@@ -2439,9 +2385,7 @@ function folkloreForest() {
         var magicEssenceNumber = objUser.items.magic_essence_craft_item.quantity;
         var mythicalMulchNumber = objUser.items.mythical_mulch_stat_item.quantity;
         var papyrusSeedNumber = objUser.items.papyrus_seed_stat_item.quantity;
-
         var canClaim = objUser.harvest_bin.can_claim;
-
         if (canClaim) {
             var claimButton = document.getElementsByClassName('forewordFarmView-harvestBin-claimButton')[0];
             fireEvent(claimButton, 'click');
@@ -2503,7 +2447,7 @@ function folkloreForest() {
             if (!fuelOn) {
                 fireEvent(fuelButton, 'click');
             }
-            checkThenArm(null, 'trinket', 'Super Cactus Charm');
+            checkThenArm(null, 'trinket', 'Ancient Charm');
         } else if (objUser.bait == "clamembert_cheese") {
             // If fuel on, turn off
             if (fuelOn) {
@@ -2513,7 +2457,7 @@ function folkloreForest() {
             if (chumOn) {
                 fireEvent(chumButtonTurnOff, 'click');
             }
-            checkThenArm(null, 'trinket', 'Super Cactus Charm');
+            checkThenArm(null, 'trinket', 'Ancient Charm');
         } else if (objUser.bait == "grubbeen_cheese") {
             // If fuel on, turn off
             if (fuelOn) {
@@ -2524,7 +2468,7 @@ function folkloreForest() {
                 console.log(chumButtonTurnOn);
                 fireEvent(chumButtonTurnOn, 'click');
             }
-            checkThenArm(null, 'trinket', 'Super Cactus Charm');
+            checkThenArm(null, 'trinket', 'Ancient Charm');
         } else {
             // If fuel on, turn off
             if (fuelOn) {
@@ -2544,8 +2488,30 @@ function folkloreForest() {
         var wordCount = objUser.current_book.word_count;
         var fuelButton = document.getElementsByClassName('folkloreForestRegionView-fuel-toggleButton')[0];
         var retreatButton = document.getElementsByClassName('tableOfContentsProgressView-cancelButton active')[0];
+        var claimButton = document.getElementsByClassName('tableOfContentsProgressView-claimButton')[0]
+        console.log(claimButton)
+
+        if (huntsRemaining < 1) {
+            fireEvent(claimButton, 'click')
+            var closeButton = document.getElementsByClassName('folkloreForestRegionView-dialog-continueButton jsDialogClose')
+            if (closeButton.length >= 1) {
+                fireEvent(closeButton[0], 'click')
+            }
+        }
+
+        var startButton = document.getElementsByClassName('tableOfContentsView-startWritingButton active canStart')
+        if (startButton.length > 0) {
+            fireEvent(startButton[0], 'click')
+            var secondDerbyButton = document.getElementsByClassName('tableOfContentsView-selectInitialBait second_draft_derby_cheese')[0]
+            fireEvent(secondDerbyButton, 'click')
+            var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents confirm')[0]
+            fireEvent(confirmButton, 'click');
+            fireEvent(fuelButton, 'click');
+        }
 
         var needFuel = (2000 - wordCount + 70) / huntsRemaining > 65.0;
+        console.log((2000 - wordCount) / huntsRemaining)
+        console.log(needFuel)
 
         if (bait == "second_draft_derby_cheese") {
             if (wordCount >= 2000) {
@@ -2561,7 +2527,7 @@ function folkloreForest() {
             if (!fuelOn) {
                 fireEvent(fuelButton, 'click');
             }
-	    if (wordCount >= 4000 && huntsRemaining <= 1 && objUser.next_book.words_until > 2000) {
+            if (wordCount >= 4000 && huntsRemaining <= 1 && objUser.next_book.words_until > 2000) {
                 fireEvent(retreatButton, 'click');
                 var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents')[1];
                 fireEvent(confirmButton, 'click');
@@ -2569,7 +2535,6 @@ function folkloreForest() {
         }
     }
 }
-
 
 function Halloween2014() {
     var currentLocation = getPageVariable("user.environment_name");
@@ -5324,7 +5289,7 @@ function checkCharge2016(stopDischargeAt) {
 function checkCharge(stopDischargeAt) {
     try {
         var charge = parseInt(document.getElementsByClassName("chargeQuantity")[0].innerText);
-		console.plog('Current Charge:', charge);
+        console.plog('Current Charge:', charge);
         if (charge == 20) {
             setStorage("discharge", true.toString());
             checkThenArm(null, "trinket", "Eggstra Charm");
@@ -5335,26 +5300,26 @@ function checkCharge(stopDischargeAt) {
                 checkThenArm(null, "trinket", "Eggstra Charm");
             }
             else {
-				if (stopDischargeAt == 17) {
-					checkThenArm('best', "trinket", chargeCharm);
-				}
-				else {
-					checkThenArm(null, "trinket", "Eggscavator");
-				}
+                if (stopDischargeAt == 17) {
+                    checkThenArm('best', "trinket", chargeCharm);
+                }
+                else {
+                    checkThenArm(null, "trinket", "Eggscavator");
+                }
             }
         }
-		else if (charge == stopDischargeAt) {
-			if (stopDischargeAt == 17) {
-				checkThenArm('best', "trinket", chargeCharm);
-			}
-			else {
-				checkThenArm(null, "trinket", "Eggscavator");
-			}
-			setStorage("discharge", false.toString());
-		}
+        else if (charge == stopDischargeAt) {
+            if (stopDischargeAt == 17) {
+                checkThenArm('best', "trinket", chargeCharm);
+            }
+            else {
+                checkThenArm(null, "trinket", "Eggscavator");
+            }
+            setStorage("discharge", false.toString());
+        }
         else if (charge < stopDischargeAt) {
             setStorage("discharge", false.toString());
-			checkThenArm(null, "trinket", "Eggscavator");
+            checkThenArm(null, "trinket", "Eggscavator");
         }
         return;
     }
@@ -5508,102 +5473,102 @@ function getBestTrap() {
 
 function checkThenArm(sort, category, name, isForcedRetry)   //category = weapon/base/charm/trinket/bait
 {
-	if(isNullOrUndefined(name) || name === '')
-		return;
+    if(isNullOrUndefined(name) || name === '')
+        return;
 
-	if (category == "charm")
+    if (category == "charm")
         category = "trinket";
 
-	if(!(Array.isArray(name))){
-		var obj = getConstToRealValue(sort, category, name);
-		if(obj.changed){
-			sort = obj.sort;
-			name = obj.name;
-		}
-	}
+    if(!(Array.isArray(name))){
+        var obj = getConstToRealValue(sort, category, name);
+        if(obj.changed){
+            sort = obj.sort;
+            name = obj.name;
+        }
+    }
 
-	if(Array.isArray(name)){
-		if(!(sort == 'best' || sort == 'any'))
-			sort = 'best';
-		if(name.length == 1){
-			sort = null;
-			name = name[0];
-		}
-	}
-	else{
-		if(name.toUpperCase().indexOf('NONE') === 0){
-			disarmTrap(category);
-			return;
-		}
-		sort = null;
-	}
+    if(Array.isArray(name)){
+        if(!(sort == 'best' || sort == 'any'))
+            sort = 'best';
+        if(name.length == 1){
+            sort = null;
+            name = name[0];
+        }
+    }
+    else{
+        if(name.toUpperCase().indexOf('NONE') === 0){
+            disarmTrap(category);
+            return;
+        }
+        sort = null;
+    }
 
-	if(isNullOrUndefined(isForcedRetry))
-		isForcedRetry = true;
+    if(isNullOrUndefined(isForcedRetry))
+        isForcedRetry = true;
 
     var trapArmed = undefined;
-	var userVariable = getPageVariable("user." + category + "_name");
+    var userVariable = getPageVariable("user." + category + "_name");
     if (sort == 'best') {
-		getTrapList(category);
-		if (objTrapList[category].length === 0){
-			var intervalCTA1 = setInterval(
-				function (){
-					if (!arming){
-						getTrapListFromTrapSelector(sort, category, name, isForcedRetry);
-						clearInterval(intervalCTA1);
-						intervalCTA1 = null;
-						return;
-					}
-				}, 1000);
-			return;
-		}
-		else{
-			var nIndex = -1;
-			for (var i = 0; i < name.length; i++) {
-				for (var j = 0; j < objTrapList[category].length; j++) {
-					nIndex = objTrapList[category][j].indexOf("...");
-					if(nIndex > -1)
-						name[i] = name[i].substr(0,nIndex);
-					if (objTrapList[category][j].indexOf(name[i]) === 0){
-						console.plog('Best', category, 'found:', name[i], 'Currently Armed:', userVariable);
-						if (userVariable.indexOf(name[i]) === 0) {
-							trapArmed = true;
-							arming = false;
-							closeTrapSelector(category);
-							return;
-						}
-						else {
-							trapArmed = false;
-							break;
-						}
-					}
-				}
-				if (trapArmed === false)
-					break;
-			}
-		}
+        getTrapList(category);
+        if (objTrapList[category].length === 0){
+            var intervalCTA1 = setInterval(
+                function (){
+                    if (!arming){
+                        getTrapListFromTrapSelector(sort, category, name, isForcedRetry);
+                        clearInterval(intervalCTA1);
+                        intervalCTA1 = null;
+                        return;
+                    }
+                }, 1000);
+            return;
+        }
+        else{
+            var nIndex = -1;
+            for (var i = 0; i < name.length; i++) {
+                for (var j = 0; j < objTrapList[category].length; j++) {
+                    nIndex = objTrapList[category][j].indexOf("...");
+                    if(nIndex > -1)
+                        name[i] = name[i].substr(0,nIndex);
+                    if (objTrapList[category][j].indexOf(name[i]) === 0){
+                        console.plog('Best', category, 'found:', name[i], 'Currently Armed:', userVariable);
+                        if (userVariable.indexOf(name[i]) === 0) {
+                            trapArmed = true;
+                            arming = false;
+                            closeTrapSelector(category);
+                            return;
+                        }
+                        else {
+                            trapArmed = false;
+                            break;
+                        }
+                    }
+                }
+                if (trapArmed === false)
+                    break;
+            }
+        }
     }
     else if(sort == 'any'){
-		trapArmed = false;
-		for (var i = 0; i < name.length; i++){
+        trapArmed = false;
+        for (var i = 0; i < name.length; i++){
             if (userVariable.indexOf(name[i]) === 0){
                 trapArmed = true;
                 break;
             }
         }
-	}
-	else{
+    }
+    else{
         trapArmed = (userVariable.indexOf(name) === 0);
     }
 
-	if (trapArmed === undefined && isForcedRetry){
-		console.plog(name.join("/"), "not found in TrapList" + capitalizeFirstLetter(category));
-		clearTrapList(category);
-		checkThenArm(sort, category, name, false);
-	}
+    if (trapArmed === undefined && isForcedRetry){
+        console.plog(name.join("/"), "not found in TrapList" + capitalizeFirstLetter(category));
+        clearTrapList(category);
+        checkThenArm(sort, category, name, false);
+    }
     else if (trapArmed === false){
-		addArmingIntoList(category);
-		var intervalCTA = setInterval(
+        addArmingIntoList(category);
+        var intervalCTA = setInterval(
             function (){
                 if (arming === false){
                     clickThenArmTrapInterval(sort, category, name);
@@ -5722,7 +5687,7 @@ function armTrapClassicUI(sort, trap, name) {
                 if (nIndex > -1)
                     name = name.substr(0, nIndex);
                 if (nameElement.indexOf(name) === 0) {
-                    if (tagElement[j].getAttribute('class').indexOf('selected') < 0)	// only click when not arming
+                    if (tagElement[j].getAttribute('class').indexOf('selected') < 0)    // only click when not arming
                         fireEvent(tagElement[j], 'click');
                     else
                         closeTrapSelector(trap);
@@ -6981,26 +6946,26 @@ function embedTimer(targetPage) {
                 preferenceHTMLStr += '<td style="height:24px; text-align:right;" colspan="2">';
                 preferenceHTMLStr += '(Changes above this line only take place after user save the preference) ';
                 preferenceHTMLStr += '<input type="button" id="PreferenceSaveInput" value="Save" onclick="\
-				try {\
-				window.localStorage.setItem(\'AggressiveMode\', 		document.getElementById(\'AggressiveModeInput\').value);\
-				window.localStorage.setItem(\'HornTimeDelayMin\', 		document.getElementById(\'HornTimeDelayMinInput\').value);\
-				window.localStorage.setItem(\'HornTimeDelayMax\', 		document.getElementById(\'HornTimeDelayMaxInput\').value);\
-				window.localStorage.setItem(\'TrapCheck\', 				document.getElementById(\'TrapCheckInput\').value);\
-				window.localStorage.setItem(\'TrapCheckTimeDelayMin\',	document.getElementById(\'TrapCheckTimeDelayMinInput\').value);\
-				window.localStorage.setItem(\'TrapCheckTimeDelayMax\', 	document.getElementById(\'TrapCheckTimeDelayMaxInput\').value);\
-				window.localStorage.setItem(\'AutoSolveKR\',            document.getElementById(\'AutoSolveKRInput\').value);\
-				window.localStorage.setItem(\'AutoSolveKR\', 			document.getElementById(\'AutoSolveKRInput\').value);\
-				window.localStorage.setItem(\'AutoSolveKR\', 			document.getElementById(\'AutoSolveKRInput\').value);\
-				window.localStorage.setItem(\'AutoSolveKRDelayMin\', 	document.getElementById(\'AutoSolveKRDelayMinInput\').value);\
-				window.localStorage.setItem(\'AutoSolveKRDelayMax\', 	document.getElementById(\'AutoSolveKRDelayMaxInput\').value);\
-				window.localStorage.setItem(\'PauseLocation\', 			document.getElementById(\'PauseLocationInput\').value);\
-				window.localStorage.setItem(\'autoPopupKR\',            document.getElementById(\'autoPopKR\').value);\
-				setSessionToLocal();\
-				} catch(e) {console.log(e);}\
-				';
+                try {\
+                window.localStorage.setItem(\'AggressiveMode\',         document.getElementById(\'AggressiveModeInput\').value);\
+                window.localStorage.setItem(\'HornTimeDelayMin\',       document.getElementById(\'HornTimeDelayMinInput\').value);\
+                window.localStorage.setItem(\'HornTimeDelayMax\',       document.getElementById(\'HornTimeDelayMaxInput\').value);\
+                window.localStorage.setItem(\'TrapCheck\',              document.getElementById(\'TrapCheckInput\').value);\
+                window.localStorage.setItem(\'TrapCheckTimeDelayMin\',  document.getElementById(\'TrapCheckTimeDelayMinInput\').value);\
+                window.localStorage.setItem(\'TrapCheckTimeDelayMax\',  document.getElementById(\'TrapCheckTimeDelayMaxInput\').value);\
+                window.localStorage.setItem(\'AutoSolveKR\',            document.getElementById(\'AutoSolveKRInput\').value);\
+                window.localStorage.setItem(\'AutoSolveKR\',            document.getElementById(\'AutoSolveKRInput\').value);\
+                window.localStorage.setItem(\'AutoSolveKR\',            document.getElementById(\'AutoSolveKRInput\').value);\
+                window.localStorage.setItem(\'AutoSolveKRDelayMin\',    document.getElementById(\'AutoSolveKRDelayMinInput\').value);\
+                window.localStorage.setItem(\'AutoSolveKRDelayMax\',    document.getElementById(\'AutoSolveKRDelayMaxInput\').value);\
+                window.localStorage.setItem(\'PauseLocation\',          document.getElementById(\'PauseLocationInput\').value);\
+                window.localStorage.setItem(\'autoPopupKR\',            document.getElementById(\'autoPopKR\').value);\
+                setSessionToLocal();\
+                } catch(e) {console.log(e);}\
+                ';
 
-                //window.localStorage.setItem('PlayKingRewardSound', 	document.getElementById('PlayKingRewardSoundInput').value);
-                //window.localStorage.setItem('SaveKRImage', 			document.getElementById('SaveKRImageInput').value);
+                //window.localStorage.setItem('PlayKingRewardSound',    document.getElementById('PlayKingRewardSoundInput').value);
+                //window.localStorage.setItem('SaveKRImage',            document.getElementById('SaveKRImageInput').value);
 
                 if (fbPlatform)
                     temp = 'window.location.href=\'' + g_strHTTP + '://www.mousehuntgame.com/canvas/\';';
@@ -7274,6 +7239,7 @@ function embedTimer(targetPage) {
                 preferenceHTMLStr += '<option value="FG/AR">FG => AR</option>';
                 preferenceHTMLStr += '<option value="Fiery Warpath">Fiery Warpath</option>';
                 preferenceHTMLStr += '<option value="Floating Islands">Floating Islands</option>';
+                preferenceHTMLStr += '<option value="Floating Islands - Auto HAI">Floating Islands - Auto HAI</option>';
                 preferenceHTMLStr += '<option value="Folklore Forest">Folklore Forest</option>';
                 preferenceHTMLStr += '<option value="Fort Rox">Fort Rox</option>';
                 preferenceHTMLStr += '<option value="Furoma Rift">Furoma Rift</option>';
@@ -8470,8 +8436,8 @@ function embedTimer(targetPage) {
                 preferenceHTMLStr += '</td>';
                 preferenceHTMLStr += '<td style="height:24px">';
                 preferenceHTMLStr += '<select id="chooseOtherDoors" onChange="\
-				saveLaby();\
-				document.getElementById(\'typeOtherDoors\').disabled = (value == \'false\') ? \'disabled\' : \'\'; ">';
+                saveLaby();\
+                document.getElementById(\'typeOtherDoors\').disabled = (value == \'false\') ? \'disabled\' : \'\'; ">';
                 preferenceHTMLStr += '<option value="false">False</option>';
                 preferenceHTMLStr += '<option value="true">True</option>';
                 preferenceHTMLStr += '</select>&nbsp;&nbsp;<a title="Select a choosing type for non-focused doors"><b>Choosing Type:</b></a>&emsp;';
@@ -8769,21 +8735,21 @@ function embedTimer(targetPage) {
                 preferenceHTMLStr += '<tr>';
                 preferenceHTMLStr += '<td style="height:24px; text-align:right;" colspan="2">';
                 preferenceHTMLStr += '(Changes only take place after user save the preference) ';
-                preferenceHTMLStr += '<input type="button" id="PreferenceSaveInput" value="Save" onclick="	\
-if (document.getElementById(\'AggressiveModeInputTrue\').checked == true) { window.localStorage.setItem(\'AggressiveMode\', \'true\'); } else { window.localStorage.setItem(\'AggressiveMode\', \'false\'); }	\
-window.localStorage.setItem(\'HornTimeDelayMin\', document.getElementById(\'HornTimeDelayMinInput\').value); window.localStorage.setItem(\'HornTimeDelayMax\', document.getElementById(\'HornTimeDelayMaxInput\').value);	\
-if (document.getElementById(\'TrapCheckInputTrue\').checked == true) { window.localStorage.setItem(\'TrapCheck\', \'true\'); } else { window.localStorage.setItem(\'TrapCheck\', \'false\'); }	\
-window.localStorage.setItem(\'TrapCheckTimeOffset\', document.getElementById(\'TrapCheckTimeOffsetInput\').value);	\
-window.localStorage.setItem(\'TrapCheckTimeDelayMin\', document.getElementById(\'TrapCheckTimeDelayMinInput\').value); window.localStorage.setItem(\'TrapCheckTimeDelayMax\', document.getElementById(\'TrapCheckTimeDelayMaxInput\').value);	\
-if (document.getElementById(\'PlayKingRewardSoundInputTrue\').checked == true) { window.localStorage.setItem(\'PlayKingRewardSound\', \'true\'); } else { window.localStorage.setItem(\'PlayKingRewardSound\', \'false\'); }	\
-if (document.getElementById(\'AutoSolveKRInputTrue\').checked == true) { window.localStorage.setItem(\'AutoSolveKR\', \'true\'); } else { window.localStorage.setItem(\'AutoSolveKR\', \'false\'); }	\
-				window.localStorage.setItem(\'AutoSolveKRDelayMin\', document.getElementById(\'AutoSolveKRDelayMinInput\').value); window.localStorage.setItem(\'AutoSolveKRDelayMax\', document.getElementById(\'AutoSolveKRDelayMaxInput\').value);	\
-window.localStorage.setItem(\'KingRewardSoundInput\', document.getElementById(\'KingRewardSoundInput\').value);	\
-window.localStorage.setItem(\'KingRewardEmail\', document.getElementById(\'KingRewardEmail\').value);	\
-if (document.getElementById(\'KingRewardResumeInputTrue\').checked == true) { window.localStorage.setItem(\'KingRewardResume\', \'true\'); } else { window.localStorage.setItem(\'KingRewardResume\', \'false\'); }	\
-window.localStorage.setItem(\'KingRewardResumeTime\', document.getElementById(\'KingRewardResumeTimeInput\').value);	\
-if (document.getElementById(\'PauseLocationInputTrue\').checked == true) { window.localStorage.setItem(\'PauseLocation\', \'true\'); } else { window.localStorage.setItem(\'PauseLocation\', \'false\'); }	\
-if (document.getElementById(\'autopopkrTrue\').checked == true) { window.localStorage.setItem(\'autoPopupKR\', \'true\'); } else { window.localStorage.setItem(\'autoPopupKR\', \'false\'); }	\
+                preferenceHTMLStr += '<input type="button" id="PreferenceSaveInput" value="Save" onclick="  \
+if (document.getElementById(\'AggressiveModeInputTrue\').checked == true) { window.localStorage.setItem(\'AggressiveMode\', \'true\'); } else { window.localStorage.setItem(\'AggressiveMode\', \'false\'); }   \
+window.localStorage.setItem(\'HornTimeDelayMin\', document.getElementById(\'HornTimeDelayMinInput\').value); window.localStorage.setItem(\'HornTimeDelayMax\', document.getElementById(\'HornTimeDelayMaxInput\').value);   \
+if (document.getElementById(\'TrapCheckInputTrue\').checked == true) { window.localStorage.setItem(\'TrapCheck\', \'true\'); } else { window.localStorage.setItem(\'TrapCheck\', \'false\'); }  \
+window.localStorage.setItem(\'TrapCheckTimeOffset\', document.getElementById(\'TrapCheckTimeOffsetInput\').value);  \
+window.localStorage.setItem(\'TrapCheckTimeDelayMin\', document.getElementById(\'TrapCheckTimeDelayMinInput\').value); window.localStorage.setItem(\'TrapCheckTimeDelayMax\', document.getElementById(\'TrapCheckTimeDelayMaxInput\').value);   \
+if (document.getElementById(\'PlayKingRewardSoundInputTrue\').checked == true) { window.localStorage.setItem(\'PlayKingRewardSound\', \'true\'); } else { window.localStorage.setItem(\'PlayKingRewardSound\', \'false\'); }    \
+if (document.getElementById(\'AutoSolveKRInputTrue\').checked == true) { window.localStorage.setItem(\'AutoSolveKR\', \'true\'); } else { window.localStorage.setItem(\'AutoSolveKR\', \'false\'); }    \
+                window.localStorage.setItem(\'AutoSolveKRDelayMin\', document.getElementById(\'AutoSolveKRDelayMinInput\').value); window.localStorage.setItem(\'AutoSolveKRDelayMax\', document.getElementById(\'AutoSolveKRDelayMaxInput\').value);   \
+window.localStorage.setItem(\'KingRewardSoundInput\', document.getElementById(\'KingRewardSoundInput\').value); \
+window.localStorage.setItem(\'KingRewardEmail\', document.getElementById(\'KingRewardEmail\').value);   \
+if (document.getElementById(\'KingRewardResumeInputTrue\').checked == true) { window.localStorage.setItem(\'KingRewardResume\', \'true\'); } else { window.localStorage.setItem(\'KingRewardResume\', \'false\'); } \
+window.localStorage.setItem(\'KingRewardResumeTime\', document.getElementById(\'KingRewardResumeTimeInput\').value);    \
+if (document.getElementById(\'PauseLocationInputTrue\').checked == true) { window.localStorage.setItem(\'PauseLocation\', \'true\'); } else { window.localStorage.setItem(\'PauseLocation\', \'false\'); }  \
+if (document.getElementById(\'autopopkrTrue\').checked == true) { window.localStorage.setItem(\'autoPopupKR\', \'true\'); } else { window.localStorage.setItem(\'autoPopupKR\', \'false\'); }   \
 if (document.getElementById(\'nobHuntsLeftInput\')) { window.localStorage.setItem(\'NOB-huntsLeft\', document.getElementById(\'nobHuntsLeftInput\').value); } \
 window.localStorage.setItem(\'addonCode\', document.getElementById(\'addonCode\').value);\
 ';
@@ -10084,7 +10050,7 @@ function embedScript() {
     scriptNode.innerHTML = 'function soundedHorn() {\
     var scriptNode = document.getElementById("scriptNode");\
     if (scriptNode) {\
-    	scriptNode.setAttribute("soundedHornAtt", "true");\
+        scriptNode.setAttribute("soundedHornAtt", "true");\
     }\
     scriptNode = null;\
     }';
