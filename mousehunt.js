@@ -2442,12 +2442,18 @@ function folkloreForest() {
 
         checkThenArm(null, 'weapon', 'Chrome School of Sharks');
 
+        if (objUser.bait_quantity < 1) {
+            checkThenArm(null, 'bait', 'Gouda Cheese');
+            checkThenArm(null, 'base', 'Prestige Base');
+        }
+
         if (objUser.bait == "stormy_clamembert_cheese") {
             // If fuel off, turn on
             if (!fuelOn) {
                 fireEvent(fuelButton, 'click');
             }
-            checkThenArm(null, 'trinket', 'Ancient Charm');
+            checkThenArm(null, 'trinket', 'Ultimate Lucky Power Charm');
+            checkThenArm(null, 'base', 'Signature Series Denture Base');
         } else if (objUser.bait == "clamembert_cheese") {
             // If fuel on, turn off
             if (fuelOn) {
@@ -2458,6 +2464,7 @@ function folkloreForest() {
                 fireEvent(chumButtonTurnOff, 'click');
             }
             checkThenArm(null, 'trinket', 'Ancient Charm');
+            checkThenArm(null, 'base', 'Prestige Base');
         } else if (objUser.bait == "grubbeen_cheese") {
             // If fuel on, turn off
             if (fuelOn) {
@@ -2469,16 +2476,17 @@ function folkloreForest() {
                 fireEvent(chumButtonTurnOn, 'click');
             }
             checkThenArm(null, 'trinket', 'Ancient Charm');
+            checkThenArm(null, 'base', 'Prestige Base');
         } else {
             // If fuel on, turn off
             if (fuelOn) {
                 fireEvent(fuelButton, 'click');
             }
             disarmTrap('trinket');
+            checkThenArm(null, 'base', 'Prestige Base');
         }
     } else if (currentLocation.indexOf("Table of Contents") > -1) {
         var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestTableOfContents)'));
-        console.log(objUser);
 
         checkThenArm(null, 'weapon', 'Chrome Thought Obliterator');
 
@@ -2489,30 +2497,12 @@ function folkloreForest() {
         var fuelButton = document.getElementsByClassName('folkloreForestRegionView-fuel-toggleButton')[0];
         var retreatButton = document.getElementsByClassName('tableOfContentsProgressView-cancelButton active')[0];
         var claimButton = document.getElementsByClassName('tableOfContentsProgressView-claimButton')[0]
-        console.log(claimButton)
 
-        if (huntsRemaining < 1) {
-            fireEvent(claimButton, 'click')
-            var closeButton = document.getElementsByClassName('folkloreForestRegionView-dialog-continueButton jsDialogClose')
-            if (closeButton.length >= 1) {
-                fireEvent(closeButton[0], 'click')
-            }
-        }
-
-        var startButton = document.getElementsByClassName('tableOfContentsView-startWritingButton active canStart')
-        if (startButton.length > 0) {
-            fireEvent(startButton[0], 'click')
-            var secondDerbyButton = document.getElementsByClassName('tableOfContentsView-selectInitialBait second_draft_derby_cheese')[0]
-            fireEvent(secondDerbyButton, 'click')
-            var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents confirm')[0]
-            fireEvent(confirmButton, 'click');
-            fireEvent(fuelButton, 'click');
-        }
-
-        var needFuel = (2000 - wordCount + 70) / huntsRemaining > 65.0;
+        var needFuel = (2000 - wordCount) / huntsRemaining > 65.0;
         console.log((2000 - wordCount) / huntsRemaining)
         console.log(needFuel)
 
+        // cc and exit calculations
         if (bait == "second_draft_derby_cheese") {
             if (wordCount >= 2000) {
                 fireEvent(retreatButton, 'click');
@@ -2527,10 +2517,32 @@ function folkloreForest() {
             if (!fuelOn) {
                 fireEvent(fuelButton, 'click');
             }
-            if (wordCount >= 4000 && huntsRemaining <= 1 && objUser.next_book.words_until > 2000) {
+            /*if (wordCount >= 4000 && huntsRemaining <= 1 && objUser.next_book.words_until > 2000) {
                 fireEvent(retreatButton, 'click');
                 var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents')[1];
                 fireEvent(confirmButton, 'click');
+            }*/
+        }
+
+        // claim
+        if (objUser.can_claim) {
+            fireEvent(claimButton, 'click')
+            var closeButton = document.getElementsByClassName('folkloreForestRegionView-dialog-continueButton jsDialogClose')
+            if (closeButton.length >= 1) {
+                fireEvent(closeButton[0], 'click')
+            }
+        }
+
+        // start epic run if enough 2nd draft
+        if (parseInt(document.getElementsByClassName('folkloreForestRegionView-bait-quantity quantity')[1].textContent) >= 25) {
+            var startButton = document.getElementsByClassName('tableOfContentsView-startWritingButton active canStart')
+            if (objUser.can_start && startButton.length > 0) {
+                fireEvent(startButton[0], 'click')
+                var secondDerbyButton = document.getElementsByClassName('tableOfContentsView-selectInitialBait second_draft_derby_cheese')[0]
+                fireEvent(secondDerbyButton, 'click')
+                var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents confirm')[0]
+                fireEvent(confirmButton, 'click');
+                fireEvent(fuelButton, 'click');
             }
         }
     }
